@@ -28,11 +28,11 @@ userRouter.post('/signup',async function(req,res){
             message: "Signed Up Successfully"
         })
     } catch(err){
-        if(error.code == 11000){
+        
             return res.status(400).json({
                 message: "This user already exists."
             })
-        }
+        
     }
 })
 
