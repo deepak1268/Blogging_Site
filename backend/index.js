@@ -6,7 +6,10 @@ const { userRouter } = require("./routes/user");
 const { blogRouter } = require("./routes/blog");
 
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));  // need to add this so frontend can send the cookie 
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/blog", blogRouter);

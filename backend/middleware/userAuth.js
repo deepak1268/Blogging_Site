@@ -5,7 +5,7 @@ const { JWT_USER_SECRET } = require("../config");
 
 async function userAuth(req, res, next) {
   try {
-    const token = req.headers.token;
+    const token = req.cookies.token;
     const decodedinfo = jwt.verify(token, JWT_USER_SECRET);
     const userid = decodedinfo.userid;
     req.userid = userid;
