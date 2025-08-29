@@ -26,7 +26,7 @@ blogRouter.post("/createBlog", userAuth, async function (req, res) {
   }
 });
 
-blogRouter.put("/modifyBlog/:id", userAuth, async function (req, res) {
+blogRouter.put("/editBlog/:id", userAuth, async function (req, res) {
   // we need to update/edit blog
 
   const userid = req.userid;
@@ -74,7 +74,7 @@ blogRouter.delete("/deleteBlog/:id", userAuth, async function (req, res) {
   });
 });
 
-blogRouter.get("/getBlogs", userAuth, async function (req, res) {
+blogRouter.get("/userBlogs", userAuth, async function (req, res) {
   const userid = req.userid;
 
   const blogs = await BlogModel.find({
@@ -85,6 +85,17 @@ blogRouter.get("/getBlogs", userAuth, async function (req, res) {
     blogs,
   });
 });
+
+blogRouter.get("/blogs",async function(req,res){
+  try{
+    const blogs = await BlogModel.find();
+    res.status(200).json({blogs});
+  } catch(err){
+    res.status(500).json({
+      message: "Error Occured"
+    })
+  }
+})
 
 module.exports = {
   blogRouter,
