@@ -6,7 +6,7 @@ const blogRouter = Router();
 
 blogRouter.use(express.json());
 
-blogRouter.post("/createBlog", userAuth, async function (req, res) {
+blogRouter.post("/blogs", userAuth, async function (req, res) {
   const { title, content } = req.body;
   const userid = req.userid;
   try {
@@ -26,7 +26,7 @@ blogRouter.post("/createBlog", userAuth, async function (req, res) {
   }
 });
 
-blogRouter.put("/editBlog/:id", userAuth, async function (req, res) {
+blogRouter.put("/blogs/:id", userAuth, async function (req, res) {
   // we need to update/edit blog
 
   const userid = req.userid;
@@ -54,7 +54,7 @@ blogRouter.put("/editBlog/:id", userAuth, async function (req, res) {
   });
 });
 
-blogRouter.delete("/deleteBlog/:id", userAuth, async function (req, res) {
+blogRouter.delete("/blogs/:id", userAuth, async function (req, res) {
   const userid = req.userid;
   const _id = req.params.id;
 
@@ -85,6 +85,20 @@ blogRouter.get("/userBlogs", userAuth, async function (req, res) {
     blogs,
   });
 });
+
+blogRouter.get("/blogs/:id",async function(req,res){
+  const blogid = req.params.id;
+  try{
+     const blog = await BlogModel.findOne({
+      _id: blogid
+     });
+     res.status(200).json({blog});
+  } catch(err){
+    res.status(400).json({
+      message: "Some error occured"
+    })
+  }
+})
 
 blogRouter.get("/blogs",async function(req,res){
   try{
