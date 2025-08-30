@@ -6,7 +6,7 @@ const blogRouter = Router();
 
 blogRouter.use(express.json());
 
-blogRouter.post("/blogs", userAuth, async function (req, res) {
+blogRouter.post("/", userAuth, async function (req, res) {
   const { title, content } = req.body;
   const userid = req.userid;
   try {
@@ -26,7 +26,7 @@ blogRouter.post("/blogs", userAuth, async function (req, res) {
   }
 });
 
-blogRouter.put("/blogs/:id", userAuth, async function (req, res) {
+blogRouter.put("/:id", userAuth, async function (req, res) {
   // we need to update/edit blog
 
   const userid = req.userid;
@@ -49,12 +49,12 @@ blogRouter.put("/blogs/:id", userAuth, async function (req, res) {
     });
   }
 
-  res.status(400).json({
+  res.status(200).json({
     message: "Blog Updated Successfully",
   });
 });
 
-blogRouter.delete("/blogs/:id", userAuth, async function (req, res) {
+blogRouter.delete("/:id", userAuth, async function (req, res) {
   const userid = req.userid;
   const _id = req.params.id;
 
@@ -74,24 +74,24 @@ blogRouter.delete("/blogs/:id", userAuth, async function (req, res) {
   });
 });
 
-blogRouter.get("/userBlogs", userAuth, async function (req, res) {
+blogRouter.get("/user", userAuth, async function (req, res) {
   const userid = req.userid;
 
   const blogs = await BlogModel.find({
     author: userid,
-  });
+  }).populate("author","firstName lastName");
 
   res.status(200).json({
     blogs,
   });
 });
 
-blogRouter.get("/blogs/:id",async function(req,res){
+blogRouter.get("/:id",async function(req,res){
   const blogid = req.params.id;
   try{
      const blog = await BlogModel.findOne({
       _id: blogid
-     });
+     }).populate("author","firstName lastName");
      res.status(200).json({blog});
   } catch(err){
     res.status(400).json({
@@ -100,9 +100,9 @@ blogRouter.get("/blogs/:id",async function(req,res){
   }
 })
 
-blogRouter.get("/blogs",async function(req,res){
+blogRouter.get("/",async function(req,res){
   try{
-    const blogs = await BlogModel.find();
+    const blogs = await BlogModel.find().populate("author", "firstName lastName");
     res.status(200).json({blogs});
   } catch(err){
     res.status(500).json({
