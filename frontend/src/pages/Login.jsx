@@ -36,7 +36,7 @@ export const Login = () => {
             return;
         }
         try {
-            const res = await axios.post("http://localhost:3000/api/v1/user/signin",formData);
+            const res = await axios.post("http://localhost:3000/api/v1/user/signin",formData,{withCredentials: true});
             setMessage(res.data.message);
         } catch (err) {
             setMessage(err.response.data.message);

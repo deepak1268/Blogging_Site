@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
 export const Header = () => {
+    
+
     return (
         <header className="h-18 sticky z-50 top-0 shadow bg-white">
             <div className="flex justify-between items-center">
                 <div className="flex justify-center items-center">
                     <div className="text-3xl pt-3 pl-4 font-semibold">
-                        <Link to='/home'>
+                        <Link to='/'>
                             The Daily Blog
                         </Link>
                     </div>

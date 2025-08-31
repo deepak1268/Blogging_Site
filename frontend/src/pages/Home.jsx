@@ -1,117 +1,36 @@
+import axios from "axios"
+import { BlogCard } from "../components/BlogCard"
 import { Header } from "../components/Header"
 import { Footer } from "../components/Footer"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 export const Home = () => {
-    return (
-        <div>
-            <Header></Header>
+   
+    const [blogs,setBlogs] = useState([]);
+    const [loading,setLoading] = useState(true);
+    
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/v1/blog/",{withCredentials: true})
+            .then((res) => (setBlogs(res.data.blogs)))
+            .catch((err) => (console.error("Error fetching blogs: ",err)))
+            .finally(()=>(setLoading(false)));
+    },[]);
 
-            <div className="bg-[#13315C] h-220 flex flex-col items-center">
-                <div className="text-white text-8xl font-semibold mt-18">
-                    <div>
-                        Create a blog
-                    </div>
-                    <div>
-                        worth sharing
-                    </div>
-                </div>
-                
-                <div className="text-white mt-8 text-xl">
-                    Share your thoughts, ideas, and stories with the world 
-                </div>
-                <br />
-                <div className="text-white text-xl font-medium italic">
-                    YOUR VOICE MATTERS!
-                </div>
-                <div className="mt-8 bg-white text-[#13315C] text-xl w-40 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
-                    <Link to='/signup'>
-                        Start Blogging
-                    </Link>  
-                </div>
-                <div className="mt-10 ">
-                    <img src="https://imgs.search.brave.com/kXw0EeMC9S1TubjxIqByHUh4AjPSjnHsmGSGHNXlrVI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ibG9nZ2luZy1j/b25jZXB0LXdlYi1i/bG9nLXNvY2lhbC1t/ZWRpYS1pbmZvcm1h/dGlvbi1uZXR3b3Jr/LWJyaXNrXzMxOTY1/LTY5NDA0Ny5qcGc_/c2VtdD1haXNfaHli/cmlkJnc9NzQwJnE9/ODA" alt="" className="h-80 rounded-3xl"/>
-                </div>
-            </div>
-
-            <div className="bg-[#EEF4ED] h-198 flex justify-between items-center"> 
-                <div className="flex flex-col ml-30">
-                    <div className="text-5xl font-semibold mb-4">
-                        How to
-                    </div>
-                    <div className="text-5xl font-semibold mb-4">
-                        create a blog
-                    </div>
-                    <div className="text-5xl font-semibold mb-4">
-                        for free
-                    </div>
-                    <div className="mt-15 text-lg font-medium">
-                        Follow these 4 steps to start
-                        <br />
-                        building your blog today.
-                    </div>
-                    <div className="bg-black text-white mt-10 rounded-4xl h-14 w-38 flex justify-center items-center hover:bg-gray-800">
-                        <Link to='/signup'>
-                            Start Blogging
-                        </Link>
-                    </div>
-                </div>
-                <div className="mr-30">
-                    <ol className="list-decimal pl-6">
-                        <li>
-                            <span className="font-semibold text-lg">
-                                Sign up for a free blog maker like The Daily Blog.
-                            </span>
-                            <span className="text-lg">
-                                Choose what kind of block you want to create.
-                            </span>
-                        </li>
-                        <br />
-                        <li>
-                            <span className="font-semibold text-lg">
-                                Pick a blog name.
-                            </span>
-                            <span className="text-lg">
-                                Let people know what your blog is all about.
-                            </span>
-                        </li>
-                        <br />
-                        <li>
-                            <span className="font-semibold text-lg">
-                                Write and publish your first post.
-                            </span>
-                            <span className="text-lg">
-                                Launch with posts you're passionate about.
-                            </span>
-                        </li>
-                        <br />
-                        <li>
-                            <span className="font-semibold text-lg">
-                                Share your blog.
-                            </span>
-                            <span className="text-lg">
-                                Gain new readers and promote your blog on social media.
-                            </span>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-
-            <div className="bg-[#8DA9C4] h-198 flex flex-col justify-center items-center">
-                <div className="text-8xl text-[#014151]">
-                    Blog anytime, anywhere
-                    <br />
-                    your words, your way.
-                </div>
-                <div className="text-2xl text-white bg-[#014151] mt-16 w-50 h-18 flex justify-center items-center rounded-4xl hover:opacity-75">
-                    <Link>
-                        Start Blogging 
-                    </Link>
-                </div>
-            </div>
-
-            <Footer></Footer>
-
+    if(loading){
+        return <div className="text-center mt-20">
+            Loading Blogs...
         </div>
-    )
+    }
+
+    return (
+        <div className="flex flex-col min-h-screen">
+            <Header></Header>
+            <main className="flex-grow">
+                {blogs.map((blog) => (
+                    <BlogCard key={blog._id} blog={blog}/>
+                ))}
+            </main>
+            <Footer></Footer>
+        </div>
+    ) 
 }
