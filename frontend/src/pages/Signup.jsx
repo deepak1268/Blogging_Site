@@ -48,10 +48,10 @@ export const Signup = () => {
       );
       setMessage(res.data.message);
       setFormData({
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
       });
       refs.current[0].focus();
     } catch (err) {
@@ -60,66 +60,71 @@ export const Signup = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <div className="text-5xl font-semibold mb-20">Sign Up</div>
+    <div>
+      <header className="mb-5 p-4 text-3xl font-semibold ">
+            <Link to="/">The Daily Blog</Link>
+      </header>
+      <div className="flex flex-col justify-center items-center">
+        <div className="text-5xl font-semibold mb-20">Sign Up</div>
 
-      {message && <div className="mb-5 text-lg font-medium">{message}</div>}
+        {message && <div className="mb-5 text-lg font-medium">{message}</div>}
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center gap-10"
-      >
-        <InputBox
-          reference={(el)=>(refs.current[0] = el)}
-          name="firstName"
-          value={formData.firstName}
-          type="text"
-          placeholder="First Name"
-          onChange={handleChange}
-          onKeyDown={(e) => (handleKeyDown(e,0))}
-        />
-        <InputBox
-          reference={(el)=>(refs.current[1] = el)}
-          name="lastName"
-          value={formData.lastName}
-          type="text"
-          placeholder="Last Name"
-          onChange={handleChange}
-          onKeyDown={(e) => (handleKeyDown(e,1))}
-        />
-        <InputBox
-          reference={(el)=>(refs.current[2] = el)}
-          name="email"
-          value={formData.email}
-          type="text"
-          placeholder="Email"
-          onChange={handleChange}
-          onKeyDown={(e) => (handleKeyDown(e,2))}
-        />
-        <InputBox
-          reference={(el)=>(refs.current[3] = el)}
-          name="password"
-          value={formData.password}
-          type="text"
-          placeholder="Password"
-          onChange={handleChange}
-          onKeyDown={(e) => (handleKeyDown(e,3))}
-        />
-        <button
-          type="submit"
-          className="border-solid border-2 p-5 rounded-4xl w-50"
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center gap-10"
         >
-          Submit
-        </button>
-      </form>
-      <div className="flex mt-2 gap-1">
-        <span>Already have an account?</span>
-        <Link
-          to={"/login"}
-          className="text-blue-500 hover:underline tracking-wider"
-        >
-          Log In
-        </Link>
+          <InputBox
+            reference={(el) => (refs.current[0] = el)}
+            name="firstName"
+            value={formData.firstName}
+            type="text"
+            placeholder="First Name"
+            onChange={handleChange}
+            onKeyDown={(e) => handleKeyDown(e, 0)}
+          />
+          <InputBox
+            reference={(el) => (refs.current[1] = el)}
+            name="lastName"
+            value={formData.lastName}
+            type="text"
+            placeholder="Last Name"
+            onChange={handleChange}
+            onKeyDown={(e) => handleKeyDown(e, 1)}
+          />
+          <InputBox
+            reference={(el) => (refs.current[2] = el)}
+            name="email"
+            value={formData.email}
+            type="text"
+            placeholder="Email"
+            onChange={handleChange}
+            onKeyDown={(e) => handleKeyDown(e, 2)}
+          />
+          <InputBox
+            reference={(el) => (refs.current[3] = el)}
+            name="password"
+            value={formData.password}
+            type="text"
+            placeholder="Password"
+            onChange={handleChange}
+            onKeyDown={(e) => handleKeyDown(e, 3)}
+          />
+          <button
+            type="submit"
+            className="border-solid border-2 p-5 rounded-4xl w-50"
+          >
+            Submit
+          </button>
+        </form>
+        <div className="flex mt-2 gap-1">
+          <span>Already have an account?</span>
+          <Link
+            to={"/login"}
+            className="text-blue-500 hover:underline tracking-wider"
+          >
+            Log In
+          </Link>
+        </div>
       </div>
     </div>
   );
