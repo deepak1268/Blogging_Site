@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { InputBox } from "../components/InputBox";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 
 export const Login = () => {
@@ -12,7 +12,8 @@ export const Login = () => {
     const [message,setMessage] = useState()
 
     const refs = useRef([]);
-    
+    const navigate = useNavigate();
+
     function handleChange(e){
         setFormData({...formData, [e.target.name]: e.target.value});
     }
@@ -38,6 +39,7 @@ export const Login = () => {
         try {
             const res = await axios.post("http://localhost:3000/api/v1/user/signin",formData,{withCredentials: true});
             setMessage(res.data.message);
+            navigate("/home");
         } catch (err) {
             setMessage(err.response.data.message);
         }
