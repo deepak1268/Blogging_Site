@@ -31,7 +31,7 @@ export const Home = () => {
     return (
         <div className="flex flex-col min-h-screen">
             <Header></Header>
-            <main className="flex-grow">
+            <main className="flex-grow bg-gray-50">
                 <div className="flex  justify-center mt-10 ">
                     <button onClick={createBlog} className="text-xl font-medium bg-orange-500 p-3 rounded-3xl flex items-center gap-1 cursor-pointer hover:opacity-90">
                         <Plus></Plus>
