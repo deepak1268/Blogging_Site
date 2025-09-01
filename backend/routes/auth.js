@@ -28,6 +28,7 @@ authRouter.get("/me",userAuth,async function(req,res){
     });
     
     res.status(200).json({
+        _id: req.userid,
         firstName: user.firstName,
         lastName: user.lastName
     });

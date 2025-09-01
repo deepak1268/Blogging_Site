@@ -5,7 +5,7 @@ export const ManagePosts = () => {
     const navigate = useNavigate();
 
     function manageposts(){
-        navigate("userBlogs");
+        navigate("/userBlogs");
     }
 
     return (

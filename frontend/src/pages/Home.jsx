@@ -25,7 +25,7 @@ export const Home = () => {
     }
 
     function createBlog(){
-        navigate("createBlog")
+        navigate("/createBlog")
     }
 
     return (

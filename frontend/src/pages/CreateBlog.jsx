@@ -29,8 +29,8 @@ export const CreateBlog = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex justify-center items-center bg-gray-50 p-6">
-        <div className="w-full max-w-3xl bg-white shadow-lg rounded-2xl p-6">
+      <main className="flex-grow flex justify-center items-center bg-[#8DA9C4] p-6">
+        <div className="w-full max-w-3xl bg-[#EEF4ED] shadow-lg rounded-2xl p-6">
           <h1 className="text-2xl text-center font-bold mb-6">✍️ Create a New Blog</h1>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
