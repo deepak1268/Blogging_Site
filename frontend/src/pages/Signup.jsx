@@ -10,7 +10,7 @@ export const Signup = () => {
     firstName: "",
     lastName: "",
   });
-
+  const [showPassword,setShowPassword] = useState(false);
   const refs = useRef([]);
 
   const [message, setMessage] = useState("");
@@ -104,11 +104,15 @@ export const Signup = () => {
             reference={(el) => (refs.current[3] = el)}
             name="password"
             value={formData.password}
-            type="text"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             onChange={handleChange}
             onKeyDown={(e) => handleKeyDown(e, 3)}
-          />
+          > 
+            <button onClick={() => (setShowPassword((prevValue)=>(!prevValue)))} className="text-sm text-gray-600">
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </InputBox>
           <button
             type="submit"
             className="border-solid border-2 p-5 rounded-4xl w-50"
