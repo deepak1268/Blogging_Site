@@ -45,7 +45,7 @@ export const BlogCard = ({ blog, onEdit, onDelete }) => {
         By {blog.author.firstName} {blog.author.lastName}
       </p>
       <Link
-        to={`/blogs/${blog._id}`}
+        to={`/blog/${blog._id}`}
         className="text-blue-600 hover:underline text-sm"
       >
         Read More →

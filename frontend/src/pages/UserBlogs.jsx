@@ -62,7 +62,7 @@ export const UserBlogs = () => {
                         <BlogCard 
                             key={blog._id}
                             blog={blog}
-                            onEdit={()=> navigate(`/edit/${blog._id}`)}
+                            onEdit={()=> navigate(`/blog/edit/${blog._id}`)}
                             onDelete={() => handleDelete(blog._id)}
                         />
                     ))}

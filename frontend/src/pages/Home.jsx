@@ -28,12 +28,21 @@ export const Home = () => {
         navigate("/createBlog")
     }
 
+    async function handleDelete(Blogid){
+        try{
+            await axios.delete(`http://localhost:3000/api/v1/blog/${Blogid}`,{withCredentials: true});
+            window.location.reload();
+        } catch(err){
+            console.error("Error occured while deleting")
+        }
+    } 
+
     return (
         <div className="flex flex-col min-h-screen">
             <Header></Header>
             <main className="flex-grow bg-gray-50">
                 <div className="flex  justify-center mt-10 ">
-                    <button onClick={createBlog} className="text-xl font-medium bg-orange-500 p-3 rounded-3xl flex items-center gap-1 cursor-pointer hover:opacity-90">
+                    <button onClick={createBlog} className="text-xl font-medium bg-blue-500 p-3 rounded-3xl flex items-center gap-1 cursor-pointer hover:opacity-90">
                         <Plus></Plus>
                         Create New Blog
                     </button>
@@ -41,7 +50,7 @@ export const Home = () => {
                 
                 <div className="mb-10 mt-10 pl-16 pr-16 flex flex-col gap-10 ">
                     {blogs.map((blog) => (
-                    <BlogCard key={blog._id} blog={blog}/>
+                    <BlogCard key={blog._id} blog={blog} onDelete={() => handleDelete(blog._id)} onEdit={() => (navigate(`/blog/edit/${blog._id}`))}/>
                     ))}
                 </div>
             </main>

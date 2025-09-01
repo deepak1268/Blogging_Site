@@ -17,7 +17,7 @@ export const Footer = () => {
             </div>
             <div className="flex gap-2">
                 <Copyright />
-                <p>2025 The Daily Blog. All rigts reserved</p>
+                <p>2025 The Daily Blog. All rights reserved</p>
             </div>
         </footer>
     );
