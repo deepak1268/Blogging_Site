@@ -6,6 +6,7 @@ import { LandingPage } from './pages/LandingPage'
 import { Signup } from "./pages/Signup"
 import { Login } from './pages/Login'
 import { Home } from './pages/Home'
+import { Blog } from './pages/Blog'
 import { CreateBlog } from './pages/CreateBlog'
 import { UserBlogs } from './pages/UserBlogs'
 import { EditBlog } from './pages/EditBlog'
@@ -23,6 +24,7 @@ function App() {
         <Route path='/' element={<LandingPage />}></Route>
         <Route path='/userBlogs' element={<ProtectedRoute> <UserBlogs /> </ProtectedRoute>}></Route>
         <Route path='/blog/edit/:id' element={<ProtectedRoute> <EditBlog /> </ProtectedRoute>}></Route>
+        <Route path='/blog/:id' element={<ProtectedRoute> <Blog /> </ProtectedRoute>}></Route>
       </Routes>
     </BrowserRouter>
   )
