@@ -3,7 +3,7 @@ import { LinkedIn, Twitter, Github, Copyright } from "./Icons";
 
 export const Footer = () => {
     return (
-        <footer className="h-18 bg-[#22223B] flex justify-between items-center pl-4 pr-10 ">
+        <footer className="h-18 bg-[#000000] flex justify-between items-center pl-4 pr-10 ">
             <div className="flex gap-4 text-white">
                 <a href="https://www.linkedin.com/in/deepak-aggarwal-a6622a31a/" target="_blank" className="hover:opacity-75 p-2 rounded-4xl">
                     <LinkedIn />

@@ -40,9 +40,9 @@ export const Home = () => {
     return (
         <div className="flex flex-col min-h-screen">
             <Header></Header>
-            <main className="flex-grow bg-gray-50">
-                <div className="flex  justify-center mt-10 ">
-                    <button onClick={createBlog} className="text-xl font-medium bg-blue-500 p-3 rounded-3xl flex items-center gap-1 cursor-pointer hover:opacity-90">
+            <main className="flex-grow bg-[#284b63]">
+                <div className="flex justify-end mt-10 mr-16">
+                    <button onClick={createBlog} className="text-xl text-white font-medium bg-[#353535] p-3 rounded-3xl flex items-center gap-1 cursor-pointer hover:opacity-90">
                         <Plus></Plus>
                         Create New Blog
                     </button>

@@ -57,22 +57,22 @@ export const Blog = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow bg-[#F5F5F5] p-6">
-        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <main className="flex-grow bg-[#284b63] p-6">
+        <div className="mx-auto bg-[#F2E9E4] shadow-lg rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold">{blog.title}</h1>
+            <h1 className="text-4xl font-bold font-mono">{blog.title}</h1>
 
             {currentUserId && blog.author?._id === currentUserId && (
               <div className="flex gap-2">
                 <button
                   onClick={() => navigate(`/blog/edit/${id}`)}
-                  className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                  className="px-3 py-1 bg-[#C9ADA7] text-black rounded-md hover:opacity-75 transition"
                 >
                   <Edit />
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                  className="px-3 py-1 bg-red-400 text-black rounded-md hover:opacity-75 transition"
                 >
                   <Delete />
                 </button>
@@ -80,8 +80,8 @@ export const Blog = () => {
             )}
           </div>
 
-          <p className="text-gray-500 text-sm mb-6">
-            By {blog.author?.firstName} {blog.author?.lastName}
+          <p className="text-yellow-800 text-xl mb-6 italic font-medium">
+            - By {blog.author?.firstName} {blog.author?.lastName}
           </p>
           <p className="whitespace-pre-line text-lg leading-relaxed mb-6">
             {blog.content}
@@ -89,7 +89,7 @@ export const Blog = () => {
 
           <Link
             to="/home"
-            className="inline-block px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            className="inline-block px-4 py-2 bg-[#4A4E69] text-white rounded-lg hover:opacity-75 font-medium"
           >
             Back to Blogs
           </Link>

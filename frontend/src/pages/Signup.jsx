@@ -65,7 +65,7 @@ export const Signup = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
 
-      <main className="flex-grow flex justify-center items-center px-4 bg-[#4A4E69]">
+      <main className="flex-grow flex justify-center items-center px-4 bg-[#284b63]">
         <div className="bg-[#F2E9E4] rounded-2xl shadow-2xl p-10 w-full max-w-md">
           <div className="text-4xl font-bold text-center mb-8 text-gray-800">
             Sign Up

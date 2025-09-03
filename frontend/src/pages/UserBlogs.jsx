@@ -39,13 +39,13 @@ export const UserBlogs = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header></Header>
-      <main className="flex-grow p-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6">
+      <main className="flex-grow p-6 bg-[#284b63]">
+        <div className="max-w-5xl mx-auto bg-[#F2E9E4] shadow-lg rounded-2xl p-6">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">📝 Manage Your Blogs</h1>
             <button
               onClick={() => navigate("/createBlog")}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex gap-1 cursor-pointer"
+              className="bg-[#4A4E69] text-white px-4 py-2 rounded-lg hover:opacity-80 transition flex gap-1 cursor-pointer"
             >
                 <Plus></Plus>
               New Blog

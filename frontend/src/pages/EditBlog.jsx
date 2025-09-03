@@ -50,8 +50,8 @@ export const EditBlog = () => {
     return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex justify-center items-center bg-[#8DA9C4] p-6">
-        <div className="w-full max-w-3xl bg-[#EEF4ED] shadow-lg rounded-2xl p-6">
+      <main className="flex-grow flex justify-center items-center bg-[#284b63] p-6">
+        <div className="w-full max-w-3xl bg-[#F2E9E4] shadow-lg rounded-2xl p-6">
           <h1 className="text-2xl text-center font-bold mb-6">Edit Blog</h1>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ export const EditBlog = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition"
+              className="w-full bg-[#4A4E69] text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition"
             >
               Publish Blog
             </button>

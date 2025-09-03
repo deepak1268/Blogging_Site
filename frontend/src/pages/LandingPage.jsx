@@ -25,9 +25,9 @@ export const LandingPage = () => {
                 <div className="relative text-[#d5bdaf] text-xl font-medium italic">
                     YOUR VOICE MATTERS!
                 </div>
-                <div className="relative mt-8 bg-white text-[#13315C] text-xl w-40 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
+                <div className="relative mt-8 bg-white font-medium text-[#13315C] text-xl w-54 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
                     <Link to='/signup'>
-                        Start Blogging
+                        Unleash Your Words
                     </Link>  
                 </div>
             </div>
@@ -48,7 +48,7 @@ export const LandingPage = () => {
                         <br />
                         building your blog today.
                     </div>
-                    <div className="bg-black text-white mt-10 rounded-4xl h-14 w-38 flex justify-center items-center hover:bg-gray-800">
+                    <div className="bg-black font-medium text-white mt-10 rounded-4xl h-14 w-38 flex justify-center items-center hover:bg-gray-800">
                         <Link to='/signup'>
                             Start Blogging
                         </Link>
@@ -95,15 +95,15 @@ export const LandingPage = () => {
                 </div>
             </div>
 
-            <div className="bg-[#C9ADA7] h-198 flex flex-col justify-center items-center">
-                <div className="text-8xl text-[#014151]">
+            <div className="bg-[#284b63] h-198 flex flex-col justify-center items-center">
+                <div className="text-8xl text-[#d9d9d9]">
                     Blog anytime, anywhere
                     <br />
                     your words, your way.
                 </div>
-                <div className="text-2xl text-white bg-[#014151] mt-16 w-50 h-18 flex justify-center items-center rounded-4xl hover:opacity-75">
+                <div className="text-2xl bg-[#d9d9d9] mt-16 w-64 h-18 flex justify-center items-center rounded-4xl hover:opacity-75 font-medium">
                     <Link>
-                        Start Blogging 
+                         Join the Conversation
                     </Link>
                 </div>
             </div>
