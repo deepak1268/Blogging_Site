@@ -7,9 +7,10 @@ export const LandingPage = () => {
         <div>
             <Header></Header>
 
-            <div className="bg-[#13315C] h-220 flex flex-col items-center">
-                <div className="text-white text-8xl font-semibold mt-18">
-                    <div>
+            <div className="bg-[#4A4E69] bg-cover bg-no-repeat bg-center h-220 flex flex-col justify-center items-center" style={{backgroundImage: `url(https://imgs.search.brave.com/NpYc85ISgRmkeEzJjdtyqHNyyjQNwwGOiAOlAaNUxGk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ibG9nZ2luZy1j/b25jZXB0LXdlYi1i/bG9nLXNvY2lhbC1t/ZWRpYS1pbmZvcm1h/dGlvbi1uZXR3b3Jr/LXNudWdseV8zMTk2/NS00OTc4ODAuanBn/P3NlbXQ9YWlzX2h5/YnJpZCZ3PTc0MCZx/PTgw)`}}>
+                <div className="absolute inset-0 bg-black opacity-50 h-240"></div>
+                <div className="relative text-white text-8xl font-semibold mt-18">
+                    <div className="text-yellow-500">
                         Create a blog
                     </div>
                     <div>
@@ -17,24 +18,21 @@ export const LandingPage = () => {
                     </div>
                 </div>
                 
-                <div className="text-white mt-8 text-xl">
+                <div className="relative text-[#f5ebe0] font-semibold mt-8 text-xl">
                     Share your thoughts, ideas, and stories with the world 
                 </div>
                 <br />
-                <div className="text-white text-xl font-medium italic">
+                <div className="relative text-[#d5bdaf] text-xl font-medium italic">
                     YOUR VOICE MATTERS!
                 </div>
-                <div className="mt-8 bg-white text-[#13315C] text-xl w-40 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
+                <div className="relative mt-8 bg-white text-[#13315C] text-xl w-40 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
                     <Link to='/signup'>
                         Start Blogging
                     </Link>  
                 </div>
-                <div className="mt-10 ">
-                    <img src="https://imgs.search.brave.com/kXw0EeMC9S1TubjxIqByHUh4AjPSjnHsmGSGHNXlrVI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ibG9nZ2luZy1j/b25jZXB0LXdlYi1i/bG9nLXNvY2lhbC1t/ZWRpYS1pbmZvcm1h/dGlvbi1uZXR3b3Jr/LWJyaXNrXzMxOTY1/LTY5NDA0Ny5qcGc_/c2VtdD1haXNfaHli/cmlkJnc9NzQwJnE9/ODA" alt="" className="h-80 rounded-3xl"/>
-                </div>
             </div>
 
-            <div className="bg-[#EEF4ED] h-198 flex justify-between items-center"> 
+            <div className="bg-[#F2E9E4] h-198 flex justify-between items-center"> 
                 <div className="flex flex-col ml-30">
                     <div className="text-5xl font-semibold mb-4">
                         How to
@@ -97,7 +95,7 @@ export const LandingPage = () => {
                 </div>
             </div>
 
-            <div className="bg-[#8DA9C4] h-198 flex flex-col justify-center items-center">
+            <div className="bg-[#C9ADA7] h-198 flex flex-col justify-center items-center">
                 <div className="text-8xl text-[#014151]">
                     Blog anytime, anywhere
                     <br />

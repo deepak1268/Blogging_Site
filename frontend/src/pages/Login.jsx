@@ -3,6 +3,8 @@ import { InputBox } from "../components/InputBox";
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +12,7 @@ export const Login = () => {
     password: "",
   });
   const [message, setMessage] = useState();
-  const [showPassword,setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const refs = useRef([]);
   const navigate = useNavigate();
@@ -50,58 +52,80 @@ export const Login = () => {
   }
 
   return (
-    <div>
-      <header className="mb-5 p-4 text-3xl font-semibold ">
-        <Link to="/">The Daily Blog</Link>
-      </header>
-      <div className="flex flex-col justify-center items-center">
-        <div className="text-5xl font-semibold mb-20">Log In</div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Header />
 
-        {message && <div className="mb-5 text-lg font-medium">{message}</div>}
+      <main className="flex-grow flex justify-center items-center px-4 bg-[#4A4E69]">
+        <div className="bg-[#F2E9E4] rounded-2xl shadow-2xl p-10 w-full max-w-md ">
+          <div className="text-4xl font-bold text-center mb-8 text-gray-800">
+            Log In
+          </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center gap-10"
-        >
-          <InputBox
-            reference={(el) => (refs.current[0] = el)}
-            type="text"
-            name="email"
-            value={formData.email}
-            placeholder="Email"
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, 0)}
-          />
-          <InputBox
-            reference={(el) => (refs.current[1] = el)}
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            placeholder="Passowrd"
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, 1)}
+          {message && (
+            <div
+              className={`mb-5 text-center text-lg font-semibold ${
+                message === "Please fill in all the fields"
+                  ? "text-red-500"
+                  : "text-green-500"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full items-center gap-6"
           >
-            <button onClick={() => (setShowPassword((prevValue)=>(!prevValue)))} className="text-sm text-gray-600">
-              {showPassword ? "Hide" : "Show"}
+            <InputBox
+              reference={(el) => (refs.current[0] = el)}
+              type="text"
+              name="email"
+              value={formData.email}
+              placeholder="Email"
+              onChange={handleChange}
+              onKeyDown={(e) => handleKeyDown(e, 0)}
+            />
+
+            <InputBox
+              reference={(el) => (refs.current[1] = el)}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              placeholder="Password"
+              onChange={handleChange}
+              onKeyDown={(e) => handleKeyDown(e, 1)}
+            >
+              <button
+                type="button"
+                onClick={() => setShowPassword((prevValue) => !prevValue)}
+                className="ml-2 text-sm text-gray-600 hover:text-gray-800"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </InputBox>
+
+            <button
+              type="submit"
+              className="mt-4 w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+            >
+              Submit
             </button>
-          </InputBox>
-          <button
-            type="submit"
-            className="border-solid border-2 p-5 rounded-4xl w-50"
-          >
-            Submit
-          </button>
-        </form>
-        <div className="flex mt-2 gap-1">
-          <span>Don't have an account?</span>
-          <Link
-            to={"/signup"}
-            className="text-blue-500 hover:underline tracking-wider"
-          >
-            Sign Up
-          </Link>
+          </form>
+
+          <div className="flex justify-center mt-6 gap-1 text-sm">
+            <span>Don't have an account?</span>
+            <Link
+              to={"/signup"}
+              className="text-blue-600 hover:underline font-medium"
+            >
+              Sign Up
+            </Link>
+          </div>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
 };

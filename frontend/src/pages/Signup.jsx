@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { InputBox } from "../components/InputBox";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +12,7 @@ export const Signup = () => {
     firstName: "",
     lastName: "",
   });
-  const [showPassword,setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const refs = useRef([]);
 
   const [message, setMessage] = useState("");
@@ -60,76 +62,91 @@ export const Signup = () => {
   }
 
   return (
-    <div>
-      <header className="mb-5 p-4 text-3xl font-semibold ">
-            <Link to="/">The Daily Blog</Link>
-      </header>
-      <div className="flex flex-col justify-center items-center">
-        <div className="text-5xl font-semibold mb-20">Sign Up</div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Header />
 
-        {message && <div className="mb-5 text-lg font-medium">{message}</div>}
+      <main className="flex-grow flex justify-center items-center px-4 bg-[#4A4E69]">
+        <div className="bg-[#F2E9E4] rounded-2xl shadow-2xl p-10 w-full max-w-md">
+          <div className="text-4xl font-bold text-center mb-8 text-gray-800">
+            Sign Up
+          </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center gap-10"
-        >
-          <InputBox
-            reference={(el) => (refs.current[0] = el)}
-            name="firstName"
-            value={formData.firstName}
-            type="text"
-            placeholder="First Name"
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, 0)}
-          />
-          <InputBox
-            reference={(el) => (refs.current[1] = el)}
-            name="lastName"
-            value={formData.lastName}
-            type="text"
-            placeholder="Last Name"
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, 1)}
-          />
-          <InputBox
-            reference={(el) => (refs.current[2] = el)}
-            name="email"
-            value={formData.email}
-            type="text"
-            placeholder="Email"
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, 2)}
-          />
-          <InputBox
-            reference={(el) => (refs.current[3] = el)}
-            name="password"
-            value={formData.password}
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, 3)}
-          > 
-            <button onClick={() => (setShowPassword((prevValue)=>(!prevValue)))} className="text-sm text-gray-600">
-              {showPassword ? "Hide" : "Show"}
+          {message && (
+            <div className={`mb-5 text-center text-lg font-semibold ${message==="Please fill in all the fields" ? "text-red-500" : "text-green-500"}`}>
+              {message}
+            </div>
+          )}
+
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full items-center gap-6"
+          >
+            <InputBox
+              reference={(el) => (refs.current[0] = el)}
+              name="firstName"
+              value={formData.firstName}
+              type="text"
+              placeholder="First Name"
+              onChange={handleChange}
+              onKeyDown={(e) => handleKeyDown(e, 0)}
+            />
+            <InputBox
+              reference={(el) => (refs.current[1] = el)}
+              name="lastName"
+              value={formData.lastName}
+              type="text"
+              placeholder="Last Name"
+              onChange={handleChange}
+              onKeyDown={(e) => handleKeyDown(e, 1)}
+            />
+            <InputBox
+              reference={(el) => (refs.current[2] = el)}
+              name="email"
+              value={formData.email}
+              type="text"
+              placeholder="Email"
+              onChange={handleChange}
+              onKeyDown={(e) => handleKeyDown(e, 2)}
+            />
+            <InputBox
+              reference={(el) => (refs.current[3] = el)}
+              name="password"
+              value={formData.password}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              onChange={handleChange}
+              onKeyDown={(e) => handleKeyDown(e, 3)}
+            >
+              <button
+                type="button"
+                onClick={() => setShowPassword((prevValue) => !prevValue)}
+                className="ml-2 text-sm text-gray-600 hover:text-gray-800"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </InputBox>
+
+            <button
+              type="submit"
+              className="mt-4 w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+            >
+              Submit
             </button>
-          </InputBox>
-          <button
-            type="submit"
-            className="border-solid border-2 p-5 rounded-4xl w-50"
-          >
-            Submit
-          </button>
-        </form>
-        <div className="flex mt-2 gap-1">
-          <span>Already have an account?</span>
-          <Link
-            to={"/login"}
-            className="text-blue-500 hover:underline tracking-wider"
-          >
-            Log In
-          </Link>
+          </form>
+
+          <div className="flex justify-center mt-6 gap-1 text-sm">
+            <span>Already have an account?</span>
+            <Link
+              to={"/login"}
+              className="text-blue-600 hover:underline font-medium"
+            >
+              Log In
+            </Link>
+          </div>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
 };
