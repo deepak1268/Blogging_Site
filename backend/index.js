@@ -22,7 +22,7 @@ async function main() {
   // mongoose connection
   await mongoose.connect(process.env.MONGO_URL);
   console.log("db connected");
-  app.listen(process.env.PORT || 5000, () => {
+  app.listen(3000, () => {
     console.log("server is up and running");
   });
 }

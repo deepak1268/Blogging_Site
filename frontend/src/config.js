@@ -1,5 +1,5 @@
 const config = {
-  apiBaseUrl: import.meta.env.VITE_BACKEND_BASE_URL, 
+  apiBaseUrl: "http://localhost:3000", 
 };
 
 export default config;
