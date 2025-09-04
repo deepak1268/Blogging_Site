@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { userRouter } = require("./routes/user");
 const { blogRouter } = require("./routes/blog");
 const { authRouter } = require("./routes/auth");
+const { commentRouter } = require("./routes/comment");
 const cookieParser = require("cookie-parser")
 
 app.use(cookieParser())
@@ -16,6 +17,7 @@ app.use(cors({
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/blog", blogRouter);
+app.use("api/v1/comment", commentRouter);
 app.use("/", authRouter);
 
 async function main() {
