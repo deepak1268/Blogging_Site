@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "../components/Icons";
 import { BlogCard } from "../components/BlogCard";
+import config from "../config";
 
 export const UserBlogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -14,7 +15,7 @@ export const UserBlogs = () => {
   useEffect(() => {
     async function fetchBlogs() {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/blog/user", {
+        const res = await axios.get(`${config.apiBaseUrl}/api/v1/blog/user`, {
           withCredentials: true,
         });
         setBlogs(res.data.blogs || []);
@@ -28,7 +29,7 @@ export const UserBlogs = () => {
 
   async function handleDelete(Blogid){
     try{
-      await axios.delete(`http://localhost:3000/api/v1/blog/${Blogid}`,{withCredentials: true});
+      await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${Blogid}`,{withCredentials: true});
       window.location.reload();
     } catch(err){
       console.error("Error occured while deleting")

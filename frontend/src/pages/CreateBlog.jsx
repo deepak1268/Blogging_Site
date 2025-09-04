@@ -3,6 +3,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
 
 export const CreateBlog = () => {
     const refs = useRef([]);
@@ -16,7 +17,7 @@ export const CreateBlog = () => {
         setLoading(true);
 
         try{
-            const res = await axios.post("http://localhost:3000/api/v1/blog/",{title,content},{withCredentials: true});
+            const res = await axios.post(`${config.apiBaseUrl}/api/v1/blog/`,{title,content},{withCredentials: true});
             alert("Blog Created");
             navigate("/home")
 

@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { Edit, Delete } from "../components/Icons";
+import config from "../config";
 
 export const Blog = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ export const Blog = () => {
   useEffect(() => {
     async function fetchBlogDetails() {
       try {
-        const res = await axios.get(`http://localhost:3000/api/v1/blog/${id}`, {
+        const res = await axios.get(`${config.apiBaseUrl}/api/v1/blog/${id}`, {
           withCredentials: true,
         });
         setBlog(res.data.blog);
@@ -28,7 +29,7 @@ export const Blog = () => {
     }
     async function fetchCurrentUser() {
       try {
-        const res = await axios.get("http://localhost:3000/me", {
+        const res = await axios.get(`${config.apiBaseUrl}/me`, {
           withCredentials: true,
         });
         setCurrentUserId(res.data._id);
@@ -44,7 +45,7 @@ export const Blog = () => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/v1/blog/${id}`, {
+      await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${id}`, {
         withCredentials: true,
       });
       navigate("/home");

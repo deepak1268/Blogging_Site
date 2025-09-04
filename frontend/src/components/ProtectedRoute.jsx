@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react"
 import { Navigate } from "react-router-dom"
 import axios from "axios";
+import config from "../config";
 
 export const ProtectedRoute = ({children}) => {
     const [isAuth,setAuth] = useState(null); // null means still checking 
@@ -9,7 +10,7 @@ export const ProtectedRoute = ({children}) => {
 
     // useEffect hook with empty dependency array will run each time ProtectedRoute parent component is rendered
     useEffect(()=>{
-        axios.get("http://localhost:3000/check-auth",{withCredentials: true})
+        axios.get(`${config.apiBaseUrl}/check-auth`,{withCredentials: true})
             .then((res) => {
                 if(res.data.authenticated){
                     setAuth(true);

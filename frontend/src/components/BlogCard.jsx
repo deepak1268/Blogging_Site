@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Delete } from "./Icons";
+import config from "../config";
 
 export const BlogCard = ({ blog, onEdit, onDelete }) => {
   const [userid, setUserid] = useState(null);
@@ -11,7 +12,7 @@ export const BlogCard = ({ blog, onEdit, onDelete }) => {
   useEffect(() => {
     async function fetchUserId() {
       try {
-        const res = await axios.get("http://localhost:3000/me", {
+        const res = await axios.get(`${config.apiBaseUrl}/me`, {
           withCredentials: true,
         });
         setUserid(res.data._id);

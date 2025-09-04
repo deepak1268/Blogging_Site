@@ -59,8 +59,8 @@ userRouter.post("/signin", async function (req, res) {
       );
       res.cookie("token",token,{
         httpOnly: true,
-        secure:false,
-        sameSite: "lax",
+        secure:true,
+        sameSite: "None",
         path: "/",
         maxAge: 60*60*1000
       });

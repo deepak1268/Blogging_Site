@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { InputBox } from "../components/InputBox";
 import axios from "axios";
+import config from "../config";
 
 export const EditBlog = () => {
     const refs = useRef([]);
@@ -19,7 +20,7 @@ export const EditBlog = () => {
     useEffect(() => {
         async function fetchBlog(){
             try{
-                const res = await axios.get(`http://localhost:3000/api/v1/blog/${id}`,{withCredentials: true});
+                const res = await axios.get(`${config.apiBaseUrl}/api/v1/blog/${id}`,{withCredentials: true});
                 setFormData({
                     title: res.data.blog.title,
                     content: res.data.blog.content
@@ -39,7 +40,7 @@ export const EditBlog = () => {
     async function handleSubmit(e){
         e.preventDefault();
         try{
-            await axios.put(`http://localhost:3000/api/v1/blog/${id}`,formData,{withCredentials: true});
+            await axios.put(`${config.apiBaseUrl}/api/v1/blog/${id}`,formData,{withCredentials: true});
             navigate(`/blog/${id}`);
         } catch(err){
             console.error("Error while updating blog",err);

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import config from "../config";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ export const Login = () => {
     }
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
+        `${config.apiBaseUrl}/api/v1/user/signin`,
         formData,
         { withCredentials: true }
       );

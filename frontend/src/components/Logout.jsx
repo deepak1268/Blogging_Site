@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import config from "../config";
 
 export const LogoutButton = () => {
 
@@ -7,7 +8,7 @@ export const LogoutButton = () => {
     async function logout (){
 
         try{
-            await axios.post("http://localhost:3000/logout",{},{withCredentials: true});
+            await axios.post(`${config.apiBaseUrl}/logout`,{},{withCredentials: true});
             window.location.href = "/";
         } catch(err) {
             console.error("Logout failed:", err.response?.data || err.message);

@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { Home } from "./Icons";
 import { LogoutButton } from "./Logout";
 import { ManagePosts } from "./ManagePosts";
+import config from "../config";
 
 export const Header = () => {
   const [isAuth, setAuth] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/check-auth", { withCredentials: true })
+      .get(`${config.apiBaseUrl}/check-auth`, { withCredentials: true })
       .then((res) => {
         if (res.data.authenticated) {
           setAuth(true);
@@ -33,7 +34,7 @@ const LoggedinHeader = () => {
     const [user,setUser] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/me",{withCredentials: true})
+        axios.get(`${config.apiBaseUrl}/me`,{withCredentials: true})
             .then((res)=>{
                 setUser(res.data.firstName)
             })

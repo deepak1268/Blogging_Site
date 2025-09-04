@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { InputBox } from "../components/InputBox";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import config from "../config";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ export const Signup = () => {
     }
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        `${config.apiBaseUrl}/api/v1/user/signup`,
         formData
       );
       setMessage(res.data.message);

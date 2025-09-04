@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer"
 import { useEffect, useState } from "react"
 import { Plus } from "../components/Icons"
 import { useNavigate } from "react-router-dom"
+import config from "../config"
 
 export const Home = () => {
    const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const Home = () => {
     const [loading,setLoading] = useState(true);
     
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/blog/",{withCredentials: true})
+        axios.get(`${config.apiBaseUrl}/api/v1/blog/`,{withCredentials: true})
             .then((res) => (setBlogs(res.data.blogs)))
             .catch((err) => (console.error("Error fetching blogs: ",err)))
             .finally(()=>(setLoading(false)));
@@ -30,7 +31,7 @@ export const Home = () => {
 
     async function handleDelete(Blogid){
         try{
-            await axios.delete(`http://localhost:3000/api/v1/blog/${Blogid}`,{withCredentials: true});
+            await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${Blogid}`,{withCredentials: true});
             window.location.reload();
         } catch(err){
             console.error("Error occured while deleting")
