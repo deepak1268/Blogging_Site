@@ -13,17 +13,23 @@ export const EditBlog = () => {
 
     const [formData,setFormData] = useState({
         title: "",
-        content: ""
-    })
-    const [message,setMessage] = useState("")
+        content: "",
+        tags: "",
+        category: ""
+    });
+    const [message,setMessage] = useState("");
+    const [updating,setUpdating] = useState(false);
 
     useEffect(() => {
         async function fetchBlog(){
             try{
                 const res = await axios.get(`${config.apiBaseUrl}/api/v1/blog/${id}`,{withCredentials: true});
+                const blog = res.data.blog;
                 setFormData({
-                    title: res.data.blog.title,
-                    content: res.data.blog.content
+                    title: blog.title,
+                    content: blog.content,
+                    category: blog.category,
+                    tags: blog.tags ? blog.tags.join(" ") : ""
                 });
             } catch(err){
                 console.error("Error while fetching blog",err);
@@ -40,7 +46,16 @@ export const EditBlog = () => {
     async function handleSubmit(e){
         e.preventDefault();
         try{
-            await axios.put(`${config.apiBaseUrl}/api/v1/blog/${id}`,formData,{withCredentials: true});
+            const payload  = {
+              ...formData,
+              tags: formData.tags
+                .trim()
+                .split(" ")
+                .filter((tag) => (tag.trim() != ""))
+            };
+            setUpdating(true);
+            await axios.put(`${config.apiBaseUrl}/api/v1/blog/${id}`,payload,{withCredentials: true});
+            setUpdating(false)
             navigate(`/blog/${id}`);
         } catch(err){
             console.error("Error while updating blog",err);
@@ -87,11 +102,51 @@ export const EditBlog = () => {
               ></textarea>
             </div>
 
+            <div>
+              <label className="block text-lg font-medium mb-2">Tags</label>
+              <input
+                type="text"
+                name="tags"
+                placeholder="e.g. #coding #movie #chai"
+                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 outline-none"
+                value={formData.tags}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label className="block text-lg font-medium mb-2">Category</label>
+              <select
+                name="category"
+                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 outline-none"
+                value={formData.category}
+                onChange={handleChange}
+              >
+                <option value="" disabled>
+                  -- Select a category --
+                </option>
+                <option value="Technology">Technology</option>
+                <option value="Health">Health</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Education">Education</option>
+                <option value="News">News</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
             <button
               type="submit"
-              className="w-full bg-[#4A4E69] text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition"
+              disabled={updating}
+              className={`w-full py-3 rounded-lg font-semibold text-lg transition ${
+                updating
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#4A4E69] text-white hover:opacity-80"
+              }`}
             >
-              Publish Blog
+              {updating ? "Updating..." : "Update Blog"}
             </button>
           </form>
         </div>

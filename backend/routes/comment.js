@@ -12,9 +12,13 @@ commentRouter.post("/addComment/:id", userAuth, async function(req,res){
     const { text } = req.body;
     
     try{
-        await BlogModel.updateOne({_id: blogId},{$push: {comments: {user: userid, text}}});
+        const blog = await BlogModel.findByIdAndUpdate(blogId, {$push: {comments: {user: userid, text}}},{new: true})
+            .populate("comments.user", "firstName lastName");
+        const newComment = blog.comments[blog.comments.length -1];
+
         res.status(201).json({
-            message: "Commented successfully."
+            message: "Commented successfully.",
+            comment : newComment
         })
     } catch(err){
         res.status(500).json({

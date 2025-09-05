@@ -17,7 +17,7 @@ app.use(cors({
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/blog", blogRouter);
-app.use("api/v1/comment", commentRouter);
+app.use("/api/v1/comment", commentRouter);
 app.use("/", authRouter);
 
 async function main() {
