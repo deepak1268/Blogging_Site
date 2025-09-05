@@ -12,8 +12,8 @@ authRouter.get("/check-auth",userAuth,function(req,res){
 authRouter.post("/logout",async function(req,res){
     res.clearCookie("token",{
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: true,
+        sameSite: "None",
         path: "/"
     });
     res.status(200).json({

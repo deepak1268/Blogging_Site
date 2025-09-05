@@ -9,6 +9,8 @@ export const LogoutButton = () => {
 
         try{
             await axios.post(`${config.apiBaseUrl}/logout`,{},{withCredentials: true});
+            localStorage.clear();
+            sessionStorage.clear();
             window.location.href = "/";
         } catch(err) {
             console.error("Logout failed:", err.response?.data || err.message);
