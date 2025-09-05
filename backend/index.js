@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser")
 app.use(cookieParser())
 const cors = require('cors');
 app.use(cors({
-  origin: ["http://localhost:5173","https://chai&chatter.vercel.app"],
+  origin: ["http://localhost:5173","https://chai-chatter.vercel.app"],
   credentials: true
 }));  // need to add this so frontend can send the cookie along the request
 
