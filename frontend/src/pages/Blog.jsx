@@ -81,8 +81,8 @@ export const Blog = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow bg-[#284b63] p-6">
-        <div className="mx-auto bg-[#F2E9E4] shadow-lg rounded-xl p-6">
+      <main className="flex-grow bg-[#284b63] p-16" style={{backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`}}>
+        <div className="mx-auto bg-white shadow-lg rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-4xl font-bold font-mono">{blog.title}</h1>
 
@@ -104,7 +104,7 @@ export const Blog = () => {
             )}
           </div>
 
-          <p className="text-sm text-gray-700 mb-2">
+          <p className="text-lg text-gray-700 mb-4 font-serif italic">
             <strong>Category:</strong> {blog.category}
           </p>
 
@@ -113,7 +113,7 @@ export const Blog = () => {
               {blog.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="bg-[#4A4E69] text-white text-sm px-2 py-1 rounded-lg"
+                  className="bg-[#bb9457] text-white text-sm px-2 py-1 rounded-lg"
                 >
                   {tag}
                 </span>
@@ -121,7 +121,7 @@ export const Blog = () => {
             </div>
           )}
 
-          <p className="text-yellow-800 text-xl mb-6 italic font-medium">
+          <p className="text-yellow-800 text-xl mb-3 italic font-medium">
             - By {blog.author?.firstName} {blog.author?.lastName} Created on{" "}
             {new Date(blog.createdAt).toLocaleDateString("en-IN", {
               day: "numeric",
@@ -132,7 +132,10 @@ export const Blog = () => {
             })}
           </p>
 
-          <p className="whitespace-pre-line text-lg leading-relaxed mb-6">
+          <div className="bg-gray-900 h-[4px] w-44"></div>
+          <br />
+
+          <p className="whitespace-pre-line text-lg font-serif leading-relaxed mb-6">
             {blog.content}
           </p>
 
@@ -146,7 +149,7 @@ export const Blog = () => {
 
         {/* Comments Section */}
         
-          <div className="mt-8 bg-[#F2E9E4] shadow-md rounded-xl p-6">
+          <div className="mt-8 bg-white shadow-md rounded-xl p-6">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Comments</h2>
 
             <form onSubmit={handleCommentSubmit} className="mb-6">

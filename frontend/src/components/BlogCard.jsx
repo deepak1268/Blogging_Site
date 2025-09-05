@@ -24,26 +24,31 @@ export const BlogCard = ({ blog, onEdit, onDelete }) => {
   }, []);
 
   return (
-    <div className="border-2 rounded-lg shadow-2xl p-4 bg-[#F2E9E4] hover:shadow-lg transition">
+    <div className="border-2 rounded-lg shadow-2xl p-4 bg-white hover:shadow-xl border hover:border-gray-100 transition">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold font-mono">{blog.title}</h2>
+        <h2 className="text-xl font-bold font-mono italic">{blog.title}</h2>
         {userid === blog.author._id && (
           <div className="flex gap-2">
-            <button onClick={onEdit} className="bg-[#C9ADA7] px-2 py-1 text-sm border rounded hover:opacity-75 cursor-pointer">
+            <button
+              onClick={onEdit}
+              className="bg-[#C9ADA7] px-2 py-1 text-sm border rounded hover:opacity-75 cursor-pointer"
+            >
               <Edit></Edit>
             </button>
-            <button onClick={onDelete} className="bg-red-400 px-2 py-1 text-sm border rounded hover:opacity-75 cursor-pointer">
+            <button
+              onClick={onDelete}
+              className="bg-red-400 px-2 py-1 text-sm border rounded hover:opacity-75 cursor-pointer"
+            >
               <Delete></Delete>
             </button>
           </div>
         )}
-      </div>
-      <br />
-      <div className="font-medium mb-3">
-        Category : {blog.category}
-      </div>
+      </div> 
+      <div className="font-medium font-sans mt-2 mb-2 italic">Category : {blog.category}</div>
 
-      <p className="text-gray-700 text- mb-3 whitespace-pre-line line-clamp-3 font-sans">
+        <div className="bg-gray-900 h-[4px] w-14"></div>
+
+      <p className="text-gray-700 mt-2 mb-3 whitespace-pre-line line-clamp-3 font-serif">
         {blog.content}...
       </p>
       <div className="flex justify-between">
@@ -52,21 +57,23 @@ export const BlogCard = ({ blog, onEdit, onDelete }) => {
         </p>
         <p className="text-yellow-800 text-sm italic font-medium">
           {new Date(blog.createdAt).toLocaleDateString("en-IN", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
         </p>
       </div>
-      
-      <Link
-        to={`/blog/${blog._id}`}
-        className="text-blue-600 hover:underline text-sm"
-      >
-        Read More →
-      </Link>
+
+      <div className="flex justify-end mt-2">
+        <Link
+          to={`/blog/${blog._id}`}
+          className="text-blue-600 hover:underline text-sm"
+        >
+          Read More →
+        </Link>
+      </div>
     </div>
   );
 };

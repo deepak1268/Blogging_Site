@@ -83,7 +83,7 @@ const LoggedoutHeader = () => {
           <Link to="/">Chai & Chatter</Link>
         </div>
       </div>
-      <div className="flex justify-center items-center mr-5 mt-4 gap-4">
+      <div className="flex justify-center items-center mr-5 mt-4 gap-5">
         <div className="hover:text-blue-300 hover:underline text-white text-lg">
           <Link to="/login">Log In</Link>
         </div>

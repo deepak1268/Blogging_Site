@@ -22,7 +22,7 @@ export const LandingPage = () => {
                     Share your thoughts, ideas, and stories with the world 
                 </div>
                 <br />
-                <div className="relative text-[#d5bdaf] text-xl font-medium italic">
+                <div className="relative text-[#f5ebe0] text-xl font-bold italic">
                     YOUR VOICE MATTERS!
                 </div>
                 <div className="relative mt-8 bg-white font-medium text-[#13315C] text-xl w-54 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
@@ -43,7 +43,7 @@ export const LandingPage = () => {
                     <div className="text-5xl font-semibold mb-4">
                         for free
                     </div>
-                    <div className="mt-15 text-lg font-medium">
+                    <div className="mt-15 text-xl font-medium">
                         Follow these 4 steps to start
                         <br />
                         building your blog today.
@@ -56,38 +56,38 @@ export const LandingPage = () => {
                 </div>
                 <div className="mr-30">
                     <ol className="list-decimal pl-6">
-                        <li>
-                            <span className="font-semibold text-lg">
-                                Sign up for a free blog maker like The Daily Blog.
+                        <li className="">
+                            <span className="font-semibold text-xl">
+                                Sign up for a free blog maker like Chai & Chatter.
                             </span>
-                            <span className="text-lg">
-                                Choose what kind of block you want to create.
+                            <span className="text-xl">
+                                Choose what kind of blog you want to create.
                             </span>
                         </li>
                         <br />
                         <li>
-                            <span className="font-semibold text-lg">
+                            <span className="font-semibold text-xl">
                                 Pick a blog name.
                             </span>
-                            <span className="text-lg">
+                            <span className="text-xl">
                                 Let people know what your blog is all about.
                             </span>
                         </li>
                         <br />
                         <li>
-                            <span className="font-semibold text-lg">
+                            <span className="font-semibold text-xl">
                                 Write and publish your first post.
                             </span>
-                            <span className="text-lg">
+                            <span className="text-xl">
                                 Launch with posts you're passionate about.
                             </span>
                         </li>
                         <br />
                         <li>
-                            <span className="font-semibold text-lg">
+                            <span className="font-semibold text-xl">
                                 Share your blog.
                             </span>
-                            <span className="text-lg">
+                            <span className="text-xl">
                                 Gain new readers and promote your blog on social media.
                             </span>
                         </li>
@@ -102,7 +102,7 @@ export const LandingPage = () => {
                     your words, your way.
                 </div>
                 <div className="text-2xl bg-[#d9d9d9] mt-16 w-64 h-18 flex justify-center items-center rounded-4xl hover:opacity-75 font-medium">
-                    <Link>
+                    <Link to='/signup'>
                          Join the Conversation
                     </Link>
                 </div>

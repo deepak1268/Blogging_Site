@@ -49,9 +49,9 @@ export const CreateBlog = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex justify-center items-center bg-[#284b63] p-6">
-        <div className="w-full max-w-4xl bg-[#F2E9E4] shadow-lg rounded-2xl p-6">
-          <h1 className="text-2xl text-center font-bold mb-6">
+      <main className="flex-grow flex justify-center items-center bg-[#284b63] p-6" style={{backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`}}>
+        <div className="w-full max-w-4xl bg-white shadow-lg rounded-2xl p-6">
+          <h1 className="text-2xl text-center font-bold font-mono italic mb-6">
             ✍️ Create a New Blog
           </h1>
 

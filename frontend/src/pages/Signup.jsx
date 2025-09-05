@@ -66,8 +66,10 @@ export const Signup = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
 
-      <main className="flex-grow flex justify-center items-center px-4 bg-[#284b63]">
-        <div className="bg-[#F2E9E4] rounded-2xl shadow-2xl p-10 w-full max-w-md">
+      <main className="flex-grow flex items-center px-4 bg-[#284b63] bg-cover bg-no-repeat bg-center" style={{backgroundImage: `url(https://imgs.search.brave.com/sT4KBtW6WPG_2SAqbrfXzKKcxC-XP11wQMo-F8nzSfU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvZGFy/ay13b3Jrc3BhY2Ut/YmxvZ2dpbmctYmFj/a2Ryb3AtYWNxb3Nz/NHJ5M2k3aWp5bC5q/cGc)`}}>
+      <div className="relative absolute inset-0 bg-black opacity-70"></div>
+        <div className="ml-22 bg-gray-100 rounded-2xl shadow-2xl p-10 w-full max-w-xl">
+          
           <div className="text-4xl font-bold text-center mb-8 text-gray-800">
             Sign Up
           </div>
@@ -135,7 +137,7 @@ export const Signup = () => {
             </button>
           </form>
 
-          <div className="flex justify-center mt-6 gap-1 text-sm">
+          <div className="flex justify-center mt-6 gap-1 text-md">
             <span>Already have an account?</span>
             <Link
               to={"/login"}

@@ -59,12 +59,12 @@ export const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header></Header>
-      <main className="flex-grow bg-[#284b63]">
+      <main className="flex-grow bg-[#284b63]" style={{backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`}}>
         <div className="flex justify-between mt-10 ml-16 mr-16">
           <select
             value={searchCategory}
             onChange={(e) => setSearchCategory(e.target.value)}
-            className="p-3 rounded-3xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-[#353535]"
+            className="px-2 py-2 rounded-2xl text-white focus:outline-none bg-[#353535]"
           >
             {categories.map((cat) => (
               <option key={cat} value={cat === "All" ? "" : cat}>
