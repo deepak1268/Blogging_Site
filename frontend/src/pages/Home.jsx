@@ -46,7 +46,7 @@ export const Home = () => {
       await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${Blogid}`, {
         withCredentials: true,
       });
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       console.error("Error occured while deleting");
     }
