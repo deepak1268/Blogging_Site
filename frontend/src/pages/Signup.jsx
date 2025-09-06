@@ -14,6 +14,7 @@ export const Signup = () => {
     lastName: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [errors,setErrors] = useState({});
   const refs = useRef([]);
 
   const [message, setMessage] = useState("");
@@ -35,21 +36,14 @@ export const Signup = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.password
-    ) {
-      setMessage("Please fill in all the fields");
-      return;
-    }
+    
     try {
       const res = await axios.post(
         `${config.apiBaseUrl}/api/v1/user/signup`,
         formData
       );
       setMessage(res.data.message);
+      setErrors({});  // clear old errors 
       setFormData({
         email: "",
         password: "",
@@ -58,7 +52,17 @@ export const Signup = () => {
       });
       refs.current[0].focus();
     } catch (err) {
-      setMessage(err.response.data.message);
+      if(err.response.data.errors){
+        const fieldErrors = {};
+        err.response.data.errors.forEach((e) => {
+          fieldErrors[e.field] = e.message;
+        });
+        setErrors(fieldErrors);
+        setMessage("");
+      }
+      else{
+        setMessage(err.response.data.message);
+      }
     }
   }
 
@@ -75,14 +79,14 @@ export const Signup = () => {
           </div>
 
           {message && (
-            <div className={`mb-5 text-center text-lg font-semibold ${message==="Please fill in all the fields" ? "text-red-500" : "text-green-500"}`}>
+            <div className={`mb-5 text-center text-lg font-semibold ${message==="This user already exists." ? "text-red-500" : "text-green-500"}`}>
               {message}
             </div>
           )}
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col w-full items-center gap-6"
+            className="flex flex-col w-full items-start gap-6"
           >
             <InputBox
               reference={(el) => (refs.current[0] = el)}
@@ -93,6 +97,8 @@ export const Signup = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 0)}
             />
+            {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+
             <InputBox
               reference={(el) => (refs.current[1] = el)}
               name="lastName"
@@ -102,6 +108,8 @@ export const Signup = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 1)}
             />
+            {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+
             <InputBox
               reference={(el) => (refs.current[2] = el)}
               name="email"
@@ -111,6 +119,8 @@ export const Signup = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 2)}
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
             <InputBox
               reference={(el) => (refs.current[3] = el)}
               name="password"
@@ -128,6 +138,7 @@ export const Signup = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </InputBox>
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
             <button
               type="submit"

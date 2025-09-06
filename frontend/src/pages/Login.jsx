@@ -13,6 +13,7 @@ export const Login = () => {
     password: "",
   });
   const [message, setMessage] = useState();
+  const [errors,setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
   const refs = useRef([]);
@@ -35,10 +36,7 @@ export const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
-      setMessage("Please fill in all the fields");
-      return;
-    }
+    
     try {
       const res = await axios.post(
         `${config.apiBaseUrl}/api/v1/user/signin`,
@@ -46,9 +44,21 @@ export const Login = () => {
         { withCredentials: true }
       );
       setMessage(res.data.message);
+      setErrors({});
+      alert("Logged in successfully")
       navigate("/home");
     } catch (err) {
-      setMessage(err.response.data.message);
+      if(err.response.data.errors){
+        const fieldErrors = {};
+        err.response.data.errors.forEach((e) => {
+          fieldErrors[e.field] = e.message;
+        });
+        setErrors(fieldErrors);
+        setMessage("");
+      }
+      else{
+        setMessage(err.response.data.message);
+      }
     }
   }
 
@@ -65,7 +75,7 @@ export const Login = () => {
           {message && (
             <div
               className={`mb-5 text-center text-lg font-semibold ${
-                message === "Please fill in all the fields"
+                message === "Incorrect Credentials" || message === "User does not exist."
                   ? "text-red-500"
                   : "text-green-500"
               }`}
@@ -76,7 +86,7 @@ export const Login = () => {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col w-full items-center gap-6"
+            className="flex flex-col w-full items-start gap-6"
           >
             <InputBox
               reference={(el) => (refs.current[0] = el)}
@@ -87,6 +97,7 @@ export const Login = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 0)}
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
             <InputBox
               reference={(el) => (refs.current[1] = el)}
@@ -105,6 +116,7 @@ export const Login = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </InputBox>
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
             <button
               type="submit"

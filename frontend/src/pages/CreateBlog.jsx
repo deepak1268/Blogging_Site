@@ -14,6 +14,7 @@ export const CreateBlog = () => {
     tags: "",
   });
   const [loading, setLoading] = useState(false);
+  const [message,setMessage] = useState("");
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -22,8 +23,14 @@ export const CreateBlog = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    
+    // add a check so that user has to fill all the fields 
+    if(!formData.title || !formData.content || !formData.category || !formData.tags){
+      setMessage("Please fill all the fields");
+      return;
+    }
 
+    setLoading(true);
     try {
       const payload = {
         ...formData,
@@ -54,6 +61,11 @@ export const CreateBlog = () => {
           <h1 className="text-2xl text-center font-bold font-mono italic mb-6">
             ✍️ Create a New Blog
           </h1>
+
+          {message && 
+            <div className="text-red-500 text-center text-lg font-semibold">
+              {message}
+            </div>}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
