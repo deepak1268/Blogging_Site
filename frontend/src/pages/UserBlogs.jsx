@@ -46,9 +46,10 @@ export const UserBlogs = () => {
             <h1 className="text-2xl font-bold font-mono italic"> 📤 Manage Your Posts</h1>
             <button
               onClick={() => navigate("/createBlog")}
-              className="bg-[#4A4E69] text-white px-4 py-2 rounded-lg hover:opacity-80 transition flex gap-1 cursor-pointer"
+              className="bg-[#4A4E69] text-white px-4 py-2 rounded-lg hover:opacity-80 transition flex justify-center items-center gap-1 cursor-pointer"
             >
-                <Plus></Plus>
+              <Plus></Plus>
+              
               New Blog
             </button>
           </div>

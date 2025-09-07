@@ -81,22 +81,22 @@ export const Blog = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow bg-[#284b63] p-16" style={{backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`}}>
+      <main className="flex-grow bg-[#284b63] py-16 px-12" style={{backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`}}>
         <div className="mx-auto bg-white shadow-lg rounded-xl p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-5 mb-4 sm:flex-row sm:justify-between sm:items-center flex-col items-end">
             <h1 className="text-4xl font-bold font-mono">{blog.title}</h1>
 
             {currentUserId && blog.author?._id === currentUserId && (
               <div className="flex gap-2">
                 <button
                   onClick={() => navigate(`/blog/edit/${id}`)}
-                  className="px-3 py-1 bg-[#C9ADA7] text-black rounded-md hover:opacity-75 transition"
+                  className="px-3 py-1 bg-[#C9ADA7] h-12 text-black rounded-md hover:opacity-75 transition"
                 >
                   <Edit />
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="px-3 py-1 bg-red-400 text-black rounded-md hover:opacity-75 transition"
+                  className="px-3 py-1 bg-red-400 h-12 text-black rounded-md hover:opacity-75 transition"
                 >
                   <Delete />
                 </button>

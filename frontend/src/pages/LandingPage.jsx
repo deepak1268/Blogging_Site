@@ -1,115 +1,138 @@
-import { Header } from "../components/Header"
-import { Footer } from "../components/Footer"
-import { Link } from "react-router-dom"
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { Link } from "react-router-dom";
 
 export const LandingPage = () => {
-    return (
-        <div>
-            <Header></Header>
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
 
-            <div className="bg-[#4A4E69] bg-cover bg-no-repeat bg-center h-220 flex flex-col justify-center items-center" style={{backgroundImage: `url(https://imgs.search.brave.com/NpYc85ISgRmkeEzJjdtyqHNyyjQNwwGOiAOlAaNUxGk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ibG9nZ2luZy1j/b25jZXB0LXdlYi1i/bG9nLXNvY2lhbC1t/ZWRpYS1pbmZvcm1h/dGlvbi1uZXR3b3Jr/LXNudWdseV8zMTk2/NS00OTc4ODAuanBn/P3NlbXQ9YWlzX2h5/YnJpZCZ3PTc0MCZx/PTgw)`}}>
-                <div className="absolute inset-0 bg-black opacity-50 h-240"></div>
-                <div className="relative text-white text-8xl font-semibold mt-18">
-                    <div className="text-yellow-500">
-                        Create a blog
-                    </div>
-                    <div>
-                        worth sharing
-                    </div>
-                </div>
-                
-                <div className="relative text-[#f5ebe0] font-semibold mt-8 text-xl">
-                    Share your thoughts, ideas, and stories with the world 
-                </div>
+      {/* Main Content */}
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section
+          className="relative bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center text-center px-6 py-24 md:py-32 min-h-screen"
+          style={{
+            backgroundImage: `url(https://imgs.search.brave.com/NpYc85ISgRmkeEzJjdtyqHNyyjQNwwGOiAOlAaNUxGk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ibG9nZ2luZy1j/b25jZXB0LXdlYi1i/bG9nLXNvY2lhbC1t/ZWRpYS1pbmZvcm1h/dGlvbi1uZXR3b3Jr/LXNudWdseV8zMTk2/NS00OTc4ODAuanBn/P3NlbXQ9YWlzX2h5/YnJpZCZ3PTc0MCZx/PTgw)`,
+          }}
+        >
+          <div className="absolute inset-0 bg-black/60"></div>
+
+          <div className="relative z-10 text-white max-w-3xl container mx-auto">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
+              <span className="text-yellow-500">Create a blog</span>
+              <br />
+              worth sharing
+            </h1>
+
+            <p className="mt-6 text-lg sm:text-xl text-[#f5ebe0]">
+              Share your thoughts, ideas, and stories with the world
+            </p>
+
+            <p className="mt-2 italic text-lg sm:text-xl font-semibold text-[#f5ebe0]">
+              YOUR VOICE MATTERS!
+            </p>
+
+            <div className="mt-8">
+              <Link
+                to="/signup"
+                className="inline-block bg-white text-[#13315C] px-6 py-3 rounded-full text-lg font-medium hover:bg-gray-200 transition"
+              >
+                Unleash Your Words
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* How To Section */}
+        <section className="bg-[#F2E9E4] py-20 min-h-screen flex justify-center items-center">
+          <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+            {/* Left Side */}
+            <div className="text-center md:text-left max-w-lg">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-snug">
+                How to create a blog
                 <br />
-                <div className="relative text-[#f5ebe0] text-xl font-bold italic">
-                    YOUR VOICE MATTERS!
-                </div>
-                <div className="relative mt-8 bg-white font-medium text-[#13315C] text-xl w-54 h-14 flex justify-center items-center rounded-4xl font-medium hover:bg-gray-300">
-                    <Link to='/signup'>
-                        Unleash Your Words
-                    </Link>  
-                </div>
+                for free
+              </h2>
+
+              <p className="mt-6 text-base sm:text-lg md:text-xl font-medium">
+                Follow these 4 steps to start building your blog today.
+              </p>
+
+              <div className="mt-8">
+                <Link
+                  to="/signup"
+                  className="inline-block bg-black text-white px-6 py-3 rounded-full text-lg hover:bg-gray-800 transition"
+                >
+                  Start Blogging
+                </Link>
+              </div>
             </div>
 
-            <div className="bg-[#F2E9E4] h-198 flex justify-between items-center"> 
-                <div className="flex flex-col ml-30">
-                    <div className="text-5xl font-semibold mb-4">
-                        How to
-                    </div>
-                    <div className="text-5xl font-semibold mb-4">
-                        create a blog
-                    </div>
-                    <div className="text-5xl font-semibold mb-4">
-                        for free
-                    </div>
-                    <div className="mt-15 text-xl font-medium">
-                        Follow these 4 steps to start
-                        <br />
-                        building your blog today.
-                    </div>
-                    <div className="bg-black font-medium text-white mt-10 rounded-4xl h-14 w-38 flex justify-center items-center hover:bg-gray-800">
-                        <Link to='/signup'>
-                            Start Blogging
-                        </Link>
-                    </div>
-                </div>
-                <div className="mr-30">
-                    <ol className="list-decimal pl-6">
-                        <li className="">
-                            <span className="font-semibold text-xl">
-                                Sign up for a free blog maker like Chai & Chatter.
-                            </span>
-                            <span className="text-xl">
-                                Choose what kind of blog you want to create.
-                            </span>
-                        </li>
-                        <br />
-                        <li>
-                            <span className="font-semibold text-xl">
-                                Pick a blog name.
-                            </span>
-                            <span className="text-xl">
-                                Let people know what your blog is all about.
-                            </span>
-                        </li>
-                        <br />
-                        <li>
-                            <span className="font-semibold text-xl">
-                                Write and publish your first post.
-                            </span>
-                            <span className="text-xl">
-                                Launch with posts you're passionate about.
-                            </span>
-                        </li>
-                        <br />
-                        <li>
-                            <span className="font-semibold text-xl">
-                                Share your blog.
-                            </span>
-                            <span className="text-xl">
-                                Gain new readers and promote your blog on social media.
-                            </span>
-                        </li>
-                    </ol>
-                </div>
+            {/* Right Side */}
+            <div className="max-w-xl">
+              <ol className="list-decimal pl-6 space-y-6 text-left">
+                <li>
+                  <span className="block font-semibold text-lg sm:text-xl">
+                    Sign up for a free blog maker like Chai & Chatter.
+                  </span>
+                  <span className="block text-lg sm:text-xl">
+                    Choose what kind of blog you want to create.
+                  </span>
+                </li>
+
+                <li>
+                  <span className="block font-semibold text-lg sm:text-xl">
+                    Pick a blog name.
+                  </span>
+                  <span className="block text-lg sm:text-xl">
+                    Let people know what your blog is all about.
+                  </span>
+                </li>
+
+                <li>
+                  <span className="block font-semibold text-lg sm:text-xl">
+                    Write and publish your first post.
+                  </span>
+                  <span className="block text-lg sm:text-xl">
+                    Launch with posts you're passionate about.
+                  </span>
+                </li>
+
+                <li>
+                  <span className="block font-semibold text-lg sm:text-xl">
+                    Share your blog.
+                  </span>
+                  <span className="block text-lg sm:text-xl">
+                    Gain new readers and promote your blog on social media.
+                  </span>
+                </li>
+              </ol>
             </div>
+          </div>
+        </section>
 
-            <div className="bg-[#284b63] h-198 flex flex-col justify-center items-center">
-                <div className="text-8xl text-[#d9d9d9]">
-                    Blog anytime, anywhere
-                    <br />
-                    your words, your way.
-                </div>
-                <div className="text-2xl bg-[#d9d9d9] mt-16 w-64 h-18 flex justify-center items-center rounded-4xl hover:opacity-75 font-medium">
-                    <Link to='/signup'>
-                         Join the Conversation
-                    </Link>
-                </div>
+        <section className="bg-[#284b63] py-20 min-h-screen flex items-center justify-center">
+          <div className="container mx-auto px-6 flex flex-col items-center text-center">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#d9d9d9] font-semibold leading-tight max-w-4xl">
+              Blog anytime, anywhere
+              <br />
+              your words, your way.
+            </h2>
+
+            <div className="mt-10">
+              <Link
+                to="/signup"
+                className="inline-block bg-[#d9d9d9] text-[#13315C] text-lg px-6 py-3 rounded-full hover:opacity-75 transition font-medium"
+              >
+                Join the Conversation
+              </Link>
             </div>
+          </div>
+        </section>
+      </main>
 
-            <Footer></Footer>
-
-        </div>
-    )
-}
+      <Footer />
+    </div>
+  );
+};

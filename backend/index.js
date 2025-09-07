@@ -6,7 +6,7 @@ const { userRouter } = require("./routes/user");
 const { blogRouter } = require("./routes/blog");
 const { authRouter } = require("./routes/auth");
 const { commentRouter } = require("./routes/comment");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 
 app.use(cookieParser())
 const cors = require('cors');
@@ -24,7 +24,7 @@ async function main() {
   // mongoose connection
   await mongoose.connect(process.env.MONGO_URL);
   console.log("db connected");
-  app.listen(3000, () => {
+  app.listen(process.env.PORT || 5000, () => {
     console.log("server is up and running");
   });
 }

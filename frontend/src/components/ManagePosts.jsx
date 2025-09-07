@@ -10,7 +10,7 @@ export const ManagePosts = () => {
 
     return (
 
-        <button onClick={manageposts} className="p-1 w-50 text-lg font-semibold rounded-2xl  hover:opacity-75 cursor-pointer">
+        <button onClick={manageposts} className="p-1 text-lg font-semibold rounded-2xl  hover:opacity-75 cursor-pointer lg:text-xl">
             Manage Your Posts
         </button>
     )
