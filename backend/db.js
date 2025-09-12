@@ -1,4 +1,3 @@
-console.log("Loaded MONGO_URL:", process.env.MONGO_URL);
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL);
 const Schema = mongoose.Schema;
@@ -27,7 +26,8 @@ const blogSchema = new Schema({
         user: {type: mongoose.Schema.Types.ObjectId , ref: "users"},
         text: String,
         createdAt: {type: Date, default: Date.now}
-    }]
+    }],
+    imageURL: String
 }, {timestamps: true});
 
 const UserModel = mongoose.model('users',userSchema);

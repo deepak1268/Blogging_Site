@@ -122,7 +122,7 @@ export const Login = () => {
               type="submit"
               className="mt-4 w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
             >
-              Submit
+              Login
             </button>
           </form>
 

@@ -13,32 +13,43 @@ export const CreateBlog = () => {
     category: "",
     tags: "",
   });
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [message,setMessage] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   function handleChange(e) {
-    setFormData((prev) => ({...prev,[e.target.name]: e.target.value}));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
-    // add a check so that user has to fill all the fields 
-    if(!formData.title || !formData.content || !formData.category || !formData.tags){
-      setMessage("Please fill all the fields");
+
+    // add a check so that user has to fill all the fields
+    if (
+      !formData.title ||
+      !formData.content ||
+      !formData.category ||
+      !formData.tags ||
+      !image
+    ) {
+      setMessage("Please fill all the fields and upload an image.");
       return;
     }
 
     setLoading(true);
     try {
-      const payload = {
-        ...formData,
-        tags: formData.tags
+      formData.tags = formData.tags
           .trim()
           .split(" ")
-          .filter((tag) => (tag.trim() != ""))
-      }
+          .filter((tag) => tag.trim() != "");
+      const payload = new FormData();
+      payload.append("title",formData.title);
+      payload.append("content",formData.content);
+      payload.append("category",formData.category);
+      payload.append("tags",formData.tags);
+      payload.append("image",image);
+      
       const res = await axios.post(
         `${config.apiBaseUrl}/api/v1/blog/`,
         payload,
@@ -56,16 +67,22 @@ export const CreateBlog = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex justify-center items-center bg-[#284b63] p-6" style={{backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`}}>
+      <main
+        className="flex-grow flex justify-center items-center bg-[#284b63] p-6"
+        style={{
+          backgroundImage: `url(https://imgs.search.brave.com/Bo7Ilk04Sf5bOBIWipgakR_GtIF5ne38NsAapi7g9kA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTAw/NzE3OTc0NC92ZWN0/b3IvYmx1ZS1hYnN0/cmFjdC1iYWNrZ3Jv/dW5kLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ZV1NOR2ha/RndLLUtUWWQ5czly/dG9uTmxLMEp1WG9k/d196MlZHb3MwVWFN/PQ)`,
+        }}
+      >
         <div className="w-full max-w-4xl bg-white shadow-lg rounded-2xl p-6">
           <h1 className="text-2xl text-center font-bold font-mono italic mb-6">
             ✍️ Create a New Blog
           </h1>
 
-          {message && 
+          {message && (
             <div className="text-red-500 text-center text-lg font-semibold">
               {message}
-            </div>}
+            </div>
+          )}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -136,6 +153,23 @@ export const CreateBlog = () => {
                 <option value="Entertainment">Entertainment</option>
                 <option value="Other">Other</option>
               </select>
+            </div>
+
+            <div>
+              <label className="block text-lg font-medium mb-2">
+                Upload Image
+              </label>
+              <input
+                type="file"
+                accept=".jpg,.jpeg,.png,.webp"
+                onChange={(e)=>(setImage(e.target.files[0]))}
+                className="block w-full text-sm text-gray-500
+             file:mr-4 file:py-2 file:px-4
+             file:rounded-lg file:border-0
+             file:font-semibold
+             file:bg-gray-300 file:text-gray-800
+             hover:file:bg-gray-400"
+              />
             </div>
 
             <button

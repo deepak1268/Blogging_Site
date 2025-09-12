@@ -2,11 +2,23 @@ const express = require("express");
 const Router = express.Router;
 const { BlogModel, UserModel } = require("../db");
 const { userAuth } = require("../middleware/userAuth");
-const blogRouter = Router();
+const {cloudinary} = require("../config");
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary")
 
+const blogRouter = Router();
 blogRouter.use(express.json());
 
-blogRouter.post("/", userAuth, async function (req, res) {
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "blog_images",
+    allowed_formats: ["jpg","png","jpeg","webp"]
+  }
+});
+const upload = multer({storage});
+
+blogRouter.post("/", userAuth, upload.single("image"), async function (req, res) {
   const { title, content, tags, category } = req.body;
   const userid = req.userid;
   try {
@@ -16,6 +28,7 @@ blogRouter.post("/", userAuth, async function (req, res) {
       author: userid,
       tags,
       category,
+      imageURL: req.file ? req.file.path : null
     });
 
     res.status(201).json({
@@ -28,21 +41,20 @@ blogRouter.post("/", userAuth, async function (req, res) {
   }
 });
 
-blogRouter.put("/:id", userAuth, async function (req, res) {
+blogRouter.put("/:id", userAuth, upload.single("image"), async function (req, res) {
   // we need to update/edit blog
 
   const _id = req.params.id; // this is the blogId
   const { title, content, tags, category } = req.body;
 
   try {
-    await BlogModel.updateOne(
-      {
-        _id,
-      },
-      {
-        $set: { title, content, tags, category },
-      }
-    );
+    const updateData = { title, content, tags, category };
+
+    if (req.file) {
+      updateData.imageURL = req.file.path;
+    }
+
+    await BlogModel.updateOne({ _id }, { $set: updateData });
     res.status(200).json({
       message: "Blog successfully updated.",
     });
