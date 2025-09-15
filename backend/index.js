@@ -8,6 +8,7 @@ const { authRouter } = require("./routes/auth");
 const { commentRouter } = require("./routes/comment");
 const cookieParser = require("cookie-parser");
 
+app.set('trust proxy', 1);
 app.use(cookieParser())
 const cors = require('cors');
 app.use(cors({
