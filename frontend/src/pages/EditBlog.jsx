@@ -2,9 +2,9 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { InputBox } from "../components/InputBox";
 import axios from "axios";
 import config from "../config";
+import { toast } from "react-toastify";
 
 export const EditBlog = () => {
   const refs = useRef([]);
@@ -18,7 +18,6 @@ export const EditBlog = () => {
     category: "",
   });
   const [image, setImage] = useState(null);
-  const [message, setMessage] = useState("");
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
@@ -34,9 +33,9 @@ export const EditBlog = () => {
           category: blog.category,
           tags: blog.tags ? blog.tags.join(" ") : "",
         });
+        console.log(formData.tags);
       } catch (err) {
         console.error("Error while fetching blog", err);
-        setMessage("Failed to load blog.");
       }
     }
     fetchBlog();
@@ -48,6 +47,8 @@ export const EditBlog = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const toastId = toast("Updating");
+    setUpdating(true);
     try {
       formData.tags = formData.tags
         .trim()
@@ -59,15 +60,28 @@ export const EditBlog = () => {
       payload.append("category", formData.category);
       payload.append("tags", formData.tags);
       payload.append("image", image);
-      setUpdating(true);
       await axios.put(`${config.apiBaseUrl}/api/v1/blog/${id}`, payload, {
         withCredentials: true,
+      });
+      toast.update(toastId,{
+        render: "Blog Updated Successfully.",
+        type: "success",
+        autoclose: 3000,
+        isLoading: false
       });
       setUpdating(false);
       navigate(`/blog/${id}`);
     } catch (err) {
       console.error("Error while updating blog", err);
-      setMessage("Failed to update blog.");
+      setUpdating(false);
+      toast.update(toastId,{
+        render: "Some error occured.",
+        type: "error",
+        autoclose: 3000,
+        isLoading: false
+      });
+    } finally {
+      setUpdating(false);
     }
   }
 

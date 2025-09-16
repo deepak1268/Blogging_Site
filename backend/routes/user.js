@@ -69,7 +69,7 @@ userRouter.post("/signup", async function (req, res) {
       lastName,
     });
     return res.status(201).json({
-      message: "Signed Up Successfully",
+      message: "Signup Successful",
     });
   } catch (err) {
     return res.status(400).json({

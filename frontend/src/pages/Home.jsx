@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { Plus } from "../components/Icons";
 import { useNavigate } from "react-router-dom";
 import config from "../config";
+import { toast } from "react-toastify";
 
 export const Home = () => {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchCategory, setSearchCategory] = useState("");
   const categories = [
     "All",
@@ -26,29 +27,58 @@ export const Home = () => {
   ];
 
   useEffect(() => {
-    axios
-      .get(`${config.apiBaseUrl}/api/v1/blog/`, { withCredentials: true })
-      .then((res) => setBlogs(res.data.blogs))
-      .catch((err) => console.error("Error fetching blogs: ", err))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) {
-    return <div className="text-center mt-20">Loading Blogs...</div>;
-  }
+    async function loadBlogs (){
+      const toastId1 = ("Fetching Blogs...")
+      setLoading(true);
+      try{
+        const res = await axios.get(`${config.apiBaseUrl}/api/v1/blog/`, { withCredentials: true });
+        toast.update(toastId1,{
+          render: "Blogs Fetched",
+          type: "success",
+          autoClose: 3000,
+          isLoading: false
+        });
+        setBlogs(res.data.blogs);
+      } catch (err){
+        toast.update(toastId1,{
+          render: "Error while loading blogs.",
+          type: "error",
+          autoClose: 3000,
+          isLoading: false
+        });
+        console.error("Error fetching blogs: ", err);
+      } finally { 
+        setLoading(false)
+      };
+    }
+    loadBlogs();
+  },[]);
 
   function createBlog() {
     navigate("/createBlog");
   }
 
   async function handleDelete(Blogid) {
+    const toastId2 = toast("Deleting Blog...")
     try {
       await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${Blogid}`, {
         withCredentials: true,
       });
+      toast.update(toastId2,{
+          render: "Blog Deleted Successfully",
+          type: "success",
+          autoClose: 3000,
+          isLoading: false
+        });
       window.location.reload();
     } catch (err) {
-      console.error("Error occured while deleting");
+      toast.update(toastId1,{
+          render: "Some Error Occured",
+          type: "error",
+          autoClose: 3000,
+          isLoading: false
+      });
+      console.error("Error occured while deleting",err);
     }
   }
 

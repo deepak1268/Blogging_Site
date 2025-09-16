@@ -10,6 +10,8 @@ import { Blog } from './pages/Blog'
 import { CreateBlog } from './pages/CreateBlog'
 import { UserBlogs } from './pages/UserBlogs'
 import { EditBlog } from './pages/EditBlog'
+import { ToastContainer, Slide} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   
@@ -26,6 +28,19 @@ function App() {
         <Route path='/blog/edit/:id' element={<ProtectedRoute> <EditBlog /> </ProtectedRoute>}></Route>
         <Route path='/blog/:id' element={<ProtectedRoute> <Blog /> </ProtectedRoute>}></Route>
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition={Slide}
+      />
     </BrowserRouter>
   )
 }

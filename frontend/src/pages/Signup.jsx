@@ -5,6 +5,7 @@ import { InputBox } from "../components/InputBox";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import config from "../config";
+import { toast } from "react-toastify";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -14,10 +15,8 @@ export const Signup = () => {
     lastName: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [errors,setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const refs = useRef([]);
-
-  const [message, setMessage] = useState("");
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,32 +35,44 @@ export const Signup = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+    const toastId = toast("Loading");
     try {
-      const res = await axios.post(
-        `${config.apiBaseUrl}/api/v1/user/signup`,
-        formData
-      );
-      setMessage(res.data.message);
-      setErrors({});  // clear old errors 
+      const res = await axios.post(`${config.apiBaseUrl}/api/v1/user/signup`, formData);
+      toast.update(toastId, {
+        render: res.data.message,
+        type: "success",
+        autoClose: 3000,
+        isLoading: false,
+      });
+      setErrors({}); // clear old errors
       setFormData({
         email: "",
-        password: "",
+        password: "",  
         firstName: "",
         lastName: "",
       });
       refs.current[0].focus();
     } catch (err) {
-      if(err.response.data.errors){
+      if (err.response.data.errors) {
         const fieldErrors = {};
         err.response.data.errors.forEach((e) => {
           fieldErrors[e.field] = e.message;
         });
         setErrors(fieldErrors);
-        setMessage("");
-      }
-      else{
-        setMessage(err.response.data.message);
+        toast.dismiss(toastId);
+      } else {
+        toast.update(toastId, {
+        render: err.response.data.message,
+        type: "success",
+        autoClose: 3000,
+        isLoading: false,
+      });
+        setFormData({
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+        });
       }
     }
   }
@@ -70,23 +81,21 @@ export const Signup = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
 
-      <main className="md:justify-start justify-center flex-grow flex items-center px-4 bg-cover bg-no-repeat bg-center" style={{backgroundImage: `url(https://imgs.search.brave.com/sT4KBtW6WPG_2SAqbrfXzKKcxC-XP11wQMo-F8nzSfU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvZGFy/ay13b3Jrc3BhY2Ut/YmxvZ2dpbmctYmFj/a2Ryb3AtYWNxb3Nz/NHJ5M2k3aWp5bC5q/cGc)`}}>
-      <div className="relative absolute inset-0 bg-black opacity-70"></div>
+      <main
+        className="md:justify-start justify-center flex-grow flex items-center px-4 bg-cover bg-no-repeat bg-center"
+        style={{
+          backgroundImage: `url(https://imgs.search.brave.com/sT4KBtW6WPG_2SAqbrfXzKKcxC-XP11wQMo-F8nzSfU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvZGFy/ay13b3Jrc3BhY2Ut/YmxvZ2dpbmctYmFj/a2Ryb3AtYWNxb3Nz/NHJ5M2k3aWp5bC5q/cGc)`,
+        }}
+      >
+        <div className="relative absolute inset-0 bg-black opacity-70"></div>
         <div className="bg-gray-100 rounded-2xl shadow-2xl p-10 w-full max-w-md md:ml-20">
-          
           <div className="text-4xl font-bold text-center mb-8 text-gray-800">
             Sign Up
           </div>
 
-          {message && (
-            <div className={`mb-5 text-center text-lg font-semibold ${message==="This user already exists." ? "text-red-500" : "text-green-500"}`}>
-              {message}
-            </div>
-          )}
-
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col w-full items-start gap-6"
+            className="flex flex-col w-full items-start gap-2"
           >
             <InputBox
               reference={(el) => (refs.current[0] = el)}
@@ -97,7 +106,9 @@ export const Signup = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 0)}
             />
-            {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+            {errors.firstName && (
+              <p className="text-red-500 text-sm">{errors.firstName}</p>
+            )}
 
             <InputBox
               reference={(el) => (refs.current[1] = el)}
@@ -108,7 +119,9 @@ export const Signup = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 1)}
             />
-            {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+            {errors.lastName && (
+              <p className="text-red-500 text-sm">{errors.lastName}</p>
+            )}
 
             <InputBox
               reference={(el) => (refs.current[2] = el)}
@@ -119,7 +132,9 @@ export const Signup = () => {
               onChange={handleChange}
               onKeyDown={(e) => handleKeyDown(e, 2)}
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
 
             <InputBox
               reference={(el) => (refs.current[3] = el)}
@@ -138,7 +153,9 @@ export const Signup = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </InputBox>
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
 
             <button
               type="submit"

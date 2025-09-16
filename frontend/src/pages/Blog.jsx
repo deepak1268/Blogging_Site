@@ -15,7 +15,6 @@ export const Blog = () => {
   const [comment, setComment] = useState("");
   const [loadingComment, setLoadingComment] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
-  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     async function fetchBlogDetails() {
@@ -26,7 +25,6 @@ export const Blog = () => {
         setBlog(res.data.blog);
       } catch (err) {
         console.error("error while fetching blog", err);
-        setMessage("Failed to load blog.");
       }
     }
     async function fetchCurrentUser() {
@@ -44,26 +42,43 @@ export const Blog = () => {
   }, [id]);
 
   async function handleDelete() {
-    if (!window.confirm("Are you sure you want to delete this blog?")) return;
-
+    const toastId1 = toast("Deleting Blog...")
     try {
       await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${id}`, {
         withCredentials: true,
       });
+      toast.update(toastId1,{
+        render: "Blog Deleted Successfully",
+        type: "success",
+        autoClose: 3000,
+        isLoading: false
+      });
       navigate("/home");
     } catch (err) {
+      toast.update(toastId1,{
+        render: "Some Error Occured",
+        type: "error",
+        autoClose: 3000,
+        isLoading: false
+      });
       console.error("Error deleting blog:", err);
-      setMessage("Failed to delete blog.");
     }
   }
 
   async function handleCommentSubmit(e) {
     e.preventDefault();
+    const toastId2 = toast("Commenting...")
     setLoadingComment(true);
     try {
       
       const res = await axios.post(`${config.apiBaseUrl}/api/v1/comment/addComment/${id}`, {text: comment}, {
         withCredentials: true,
+      });
+      toast.update(toastId2,{
+        render: "Commented Successfully",
+        type: "success",
+        autoClose: 3000,
+        isLoading: false
       });
       setBlog((prev) => ({
         ...prev,
@@ -72,6 +87,12 @@ export const Blog = () => {
       
       setComment("");
     } catch (err) {
+      toast.update(toastId2,{
+        render: "Some Error Occured",
+        type: "error",
+        autoClose: 3000,
+        isLoading: false
+      });
       console.error("Error while posting comment", err);
     } finally{
       setLoadingComment(false);

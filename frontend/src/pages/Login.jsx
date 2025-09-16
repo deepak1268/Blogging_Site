@@ -6,13 +6,13 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import config from "../config";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [message, setMessage] = useState();
   const [errors,setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,16 +36,20 @@ export const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+    const toastId = toast("Logging In");
     try {
       const res = await axios.post(
         `${config.apiBaseUrl}/api/v1/user/signin`,
         formData,
         { withCredentials: true }
       );
-      setMessage(res.data.message);
+      toast.update(toastId,{
+        render: res.data.message,
+        type: "success",
+        autoClose: 3000,
+        isLoading: false
+      });
       setErrors({});
-      alert("Logged in successfully")
       navigate("/home");
     } catch (err) {
       if(err.response.data.errors){
@@ -54,10 +58,15 @@ export const Login = () => {
           fieldErrors[e.field] = e.message;
         });
         setErrors(fieldErrors);
-        setMessage("");
+        toast.dismiss(toastId)
       }
       else{
-        setMessage(err.response.data.message);
+        toast.update(toastId,{
+          render: err.response.data.message,
+          type: "error",
+          autoClose: 3000,
+          isLoading: false
+        });
       }
     }
   }
@@ -71,18 +80,6 @@ export const Login = () => {
           <div className="text-4xl font-bold text-center mb-8 text-gray-800">
             Log In
           </div>
-
-          {message && (
-            <div
-              className={`mb-5 text-center text-lg font-semibold ${
-                message === "Incorrect Credentials" || message === "User does not exist."
-                  ? "text-red-500"
-                  : "text-green-500"
-              }`}
-            >
-              {message}
-            </div>
-          )}
 
           <form
             onSubmit={handleSubmit}

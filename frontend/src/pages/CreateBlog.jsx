@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import config from "../config";
+import { toast } from "react-toastify";
 
 export const CreateBlog = () => {
   const refs = useRef([]);
@@ -24,7 +25,7 @@ export const CreateBlog = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    const toastId = toast("Creating Blog...")
     // add a check so that user has to fill all the fields
     if (
       !formData.title ||
@@ -33,7 +34,12 @@ export const CreateBlog = () => {
       !formData.tags ||
       !image
     ) {
-      setMessage("Please fill all the fields and upload an image.");
+      toast.update(toastId,{
+        render: "Please fill in all the fields",
+        type: "error",
+        autoClose: 3000,
+        isLoading: false
+      });
       return;
     }
 
@@ -55,12 +61,25 @@ export const CreateBlog = () => {
         payload,
         { withCredentials: true }
       );
+      toast.update(toastId,{
+        render: "Blog Created Successfully",
+        type: "success",
+        autoClose: 3000,
+        isLoading: false
+      });
       setFormData({ title: "", content: "", category: "", tags: "" });
-      alert("Blog Created");
       navigate("/home");
-      setLoading(false);
     } catch (err) {
+      toast.update(toastId,{
+        render: "Some Error Occured",
+        type: "error",
+        autoClose: 3000,
+        isLoading: false
+      });
+      
       console.error("Failed to create Blog", err);
+    } finally {
+      setLoading(false);
     }
   }
 

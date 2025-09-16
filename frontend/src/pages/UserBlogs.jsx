@@ -6,32 +6,63 @@ import { useNavigate } from "react-router-dom";
 import { Plus } from "../components/Icons";
 import { BlogCard } from "../components/BlogCard";
 import config from "../config";
+import { toast } from "react-toastify";
 
 export const UserBlogs = () => {
   const [blogs, setBlogs] = useState([]);
-  const [loading,setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const toastId1 = toast("Fetching Blogs...");
     async function fetchBlogs() {
       try {
         const res = await axios.get(`${config.apiBaseUrl}/api/v1/blog/user`, {
           withCredentials: true,
         });
+        toast.update(toastId1,{
+          render: "Blogs Loaded",
+          type: "success",
+          autoClose: 3000,
+          isLoading: false
+        });
         setBlogs(res.data.blogs || []);
-        setLoading(false);
       } catch (err) {
+        toast.update(toastId1,{
+          render: "Some Error Ocurred",
+          type: "error",
+          autoClose: 3000,
+          isLoading: false
+        });
         console.error("Error while fetching blogs", err);
+      } finally {
+        toast.dismiss(toastId1);
       }
     }
     fetchBlogs();
+
+    return ()=>{
+      toast.dismiss(toastId1)
+    }
   }, []);
 
   async function handleDelete(Blogid){
+    const toastId2 = toast("Deleting Blog...")
     try{
       await axios.delete(`${config.apiBaseUrl}/api/v1/blog/${Blogid}`,{withCredentials: true});
+      toast.update(toastId2,{
+          render: "Blog Deleted Successfully",
+          type: "success",
+          autoClose: 3000,
+          isLoading: false
+        });
       window.location.reload();
     } catch(err){
+      toast.update(toastId2,{
+          render: "Some Error Ocurred",
+          type: "error",
+          autoClose: 3000,
+          isLoading: false
+        });
       console.error("Error occured while deleting")
     }
     
@@ -54,21 +85,17 @@ export const UserBlogs = () => {
             </button>
           </div>
 
-            {loading ? (
-                <p className="text-center">Loading Blogs...</p>
-            ): blogs.length === 0 ? (
-                <p className="text-center">You haven't written any blogs yet.</p>
-            ) : (
-                <div className="space-y-4">
-                    {blogs.map((blog) => (
-                        <BlogCard 
-                            key={blog._id}
-                            blog={blog}
-                            onEdit={()=> navigate(`/blog/edit/${blog._id}`)}
-                            onDelete={() => handleDelete(blog._id)}
-                        />
-                    ))}
-                </div>
+            {blogs.length === 0 ? (<p className="text-center">You haven't written any blogs yet.</p>) : (
+              <div className="space-y-4">
+                  {blogs.map((blog) => (
+                    <BlogCard 
+                      key={blog._id}
+                      blog={blog}
+                      onEdit={()=> navigate(`/blog/edit/${blog._id}`)}
+                      onDelete={() => handleDelete(blog._id)}
+                    />
+                  ))}
+              </div>
             )}
         </div>
       </main>
